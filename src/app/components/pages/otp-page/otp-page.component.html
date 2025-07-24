@@ -1,0 +1,18 @@
+<div class="otp-container">
+  <h2>Enter OTP</h2>
+  <p class="info">We have sent a 6-digit OTP to your registered mobile/email.</p>
+
+  <form [formGroup]="otpForm" (ngSubmit)="onSubmit()" class="otp-form">
+    <div class="otp-inputs">
+      <input *ngFor="let ctrl of otpControls.controls; index as i" [formControl]="getControl(i)" id="otp-{{ i }}"
+        maxlength="1" type="text" pattern="[0-9]*" inputmode="numeric" (input)="onOtpInput($event, i)" />
+    </div>
+
+    <button type="submit" [disabled]="otpForm.invalid">Verify OTP</button>
+
+    <div class="timer-section">
+      <span *ngIf="isResendDisabled">Resend OTP in {{ timer }}s</span>
+      <button *ngIf="!isResendDisabled" type="button" (click)="resendOtp()">Resend OTP</button>
+    </div>
+  </form>
+</div>

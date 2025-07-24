@@ -1,0 +1,10 @@
+<div class="payment-container">
+  <h2 class="title">Complete Your Payment</h2>
+
+  <div class="details">
+    <p><strong>Booking ID:</strong> {{ bookingDetailId }}</p>
+    <p><strong>Total Amount:</strong> ₹{{ amount }}</p>
+  </div>
+
+  <button class="pay-btn" (click)="payNow()">Pay ₹{{ amount }}</button>
+</div>

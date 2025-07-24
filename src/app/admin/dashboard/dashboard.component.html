@@ -1,0 +1,133 @@
+<div class="dashboard-container">
+  <!-- Statistics Cards -->
+  <div class="row">
+    <div class="col-md-6 col-xl-3" *ngFor="let stat of stats">
+      <div class="card shadow-sm p-3 position-relative h-100 stat-card">
+
+        <!-- Dropdown Menu -->
+        <div class="dropdown position-absolute top-0 end-0 m-2">
+          <button class="dropdown-toggle" type="button" (click)="toggleDropdown(stat.key)"></button>
+          <ul *ngIf="activeDropdown === stat.key" class="dropdown-menu show">
+            <li><a class="dropdown-item" (click)="filterData(stat.key, 'today')">Today</a></li>
+            <li><a class="dropdown-item" (click)="filterData(stat.key, 'weekly')">This Week</a></li>
+            <li><a class="dropdown-item" (click)="filterData(stat.key, 'monthly')">This Month</a></li>
+          </ul>
+        </div>
+
+        <!-- Icon & Label -->
+        <div class="d-flex align-items-center mb-2">
+          <div class="icon-wrapper me-2 rounded-circle d-flex justify-content-center align-items-center"
+            [ngStyle]="{ 'background-color': stat.color + '33', width: '40px', height: '40px' }">
+            <i class="bi fs-5" [ngClass]="stat.icon" [style.color]="stat.color"></i>
+          </div>
+          <h6 class="mb-0">{{ stat.label }}</h6>
+        </div>
+
+        <!-- Chart -->
+        <div style="height: 80px;">
+          <canvas baseChart [data]="chartDataMap[stat.key].data" [options]="chartDataMap[stat.key].options"
+            [type]="'line'" style="height: 80px;">
+          </canvas>
+        </div>
+
+        <!-- Value & Change -->
+        <div class="d-flex justify-content-between align-items-center mt-2">
+          <h5 class="fw-bold mb-0">{{ stat.value }}</h5>
+          <span class="fw-semibold" [ngStyle]="{ color: stat.change >= 0 ? 'green' : 'red' }">
+            {{ stat.change >= 0 ? '↑' : '↓' }} {{ stat.change }}%
+          </span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Registration Table -->
+  <div class="registrations-section" *ngIf="!selectedUser">
+    <h3>Recent Registrations</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>DATE</th>
+          <th>FULL NAME</th>
+          <th>EMAIL</th>
+          <th>MOBILE NUMBER</th>
+          <th>GENDER</th>
+          <th>ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of registrations; index as i">
+          <td>{{ i + 1 + (currentPage - 1) * pageSize }}</td>
+          <td>{{ user.createdAt | date:'dd-MM-yyyy' }}</td>
+          <td>{{ user.fullName }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.mobileNumber }}</td>
+          <td>{{ user.gender }}</td>
+          <td>
+            <button class="view-btn" (click)="viewUser(user)">View</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="pagination" *ngIf="totalItems > pageSize">
+      <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">Previous</button>
+      <button *ngFor="let page of [].constructor(Math.ceil(totalItems / pageSize)); let i = index"
+        [class.active]="i + 1 === currentPage" (click)="onPageChange(i + 1)">
+        {{ i + 1 }}
+      </button>
+      <button [disabled]="currentPage >= totalItems / pageSize" (click)="onPageChange(currentPage + 1)">Next</button>
+    </div>
+  </div>
+
+  <!-- User Details View -->
+  <div class="user-details-view" *ngIf="selectedUser">
+    <h2>User Details</h2>
+    <div class="details-grid">
+      <div class="row">
+        <div class="field">
+          <label for="createdDate">Created Date</label>
+          <div class="readonly-box" id="createdDate">{{ selectedUser.createdAt | date: 'dd-MM-yyyy' }}</div>
+        </div>
+        <div class="field">
+          <label for="createdTime">Created Time</label>
+          <div class="readonly-box" id="createdTime">{{ selectedUser.createdAt | date: 'hh:mm a' }}</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="fullName">Full Name</label>
+          <div class="readonly-box" id="fullName">{{ selectedUser.fullName }}</div>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <div class="readonly-box" id="email">{{ selectedUser.email }}</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="mobile">Mobile Number</label>
+          <div class="readonly-box" id="mobile">{{ selectedUser.mobileNumber }}</div>
+        </div>
+         <div class="field">
+          <label for="dob">Date of Birth</label>
+          <div class="readonly-box" id="dob">{{ selectedUser.dateOfBirth | date: 'dd-MM-yyyy' }}</div>
+        </div>
+        <div class="field">
+          <label for="gender">Gender</label>
+          <div class="readonly-box" id="gender">{{ selectedUser.gender }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button class="close-btn" (click)="closeView()">Close</button>
+    </div>
+  </div>
+</div>

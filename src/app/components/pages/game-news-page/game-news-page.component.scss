@@ -1,0 +1,248 @@
+.section.news {
+  overflow: hidden;
+  background-color: rgb(37, 19, 77);
+  padding: 4rem 0;
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+
+    .section-subtitle {
+      color: #00f2fe;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+      text-transform: uppercase;
+
+      .span {
+        color: #f368e0;
+      }
+    }
+
+    .section-description {
+      color: #d1d8e0;
+      font-size: 0.9rem;
+    }
+  }
+
+  .slider-control.left {
+    left: 5px;
+  }
+
+  .slider-control.right {
+    right: 5px;
+  }
+
+  .slider-wrapper {
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+
+    .slider-viewport {
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .slider-track {
+      display: flex;
+      align-items: stretch;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slider-item {
+      flex: 0 0 calc(100% / 3 - 17px);
+      box-sizing: border-box;
+      padding-right: 17px;
+
+      &:last-child {
+        padding-right: 0;
+      }
+
+      .card {
+        background: linear-gradient(145deg, #0f0c29, #302b63, #24243e);
+        border-radius: 16px;
+        color: #fff;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.4s ease-in-out;
+
+        &:hover {
+          transform: scale(1.03);
+        }
+
+        .image-container {
+          position: relative;
+
+          img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+          }
+
+          .info-overlay {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: white;
+
+            .tag {
+              background: linear-gradient(to right, #00f2fe, #4facfe);
+              padding: 4px 10px;
+              font-size: 0.75rem;
+              font-weight: 600;
+              border-radius: 4px;
+              text-transform: uppercase;
+              display: inline-block;
+              margin-bottom: 5px;
+            }
+
+            .meta {
+              display: flex;
+              gap: 0.5rem;
+              font-size: 0.8rem;
+
+              i {
+                margin-right: 4px;
+                color: #f368e0;
+              }
+            }
+          }
+        }
+
+        .card-content {
+          padding: 1rem;
+          flex: 1;
+
+          .title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+          }
+
+          .description {
+            font-size: 0.85rem;
+            color: #c8d6e5;
+            margin: 0.5rem 0 1rem;
+          }
+
+          .read-more {
+            font-weight: bold;
+            font-size: 0.85rem;
+            color: #f368e0;
+            text-decoration: none;
+            text-transform: uppercase;
+
+            &:hover {
+              color: #fff;
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+
+    .slider-control {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+
+      &.left {
+        left: 10px;
+      }
+
+      &.right {
+        right: 10px;
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+
+  // Responsive media queries
+  @media (max-width: 576px) {
+    .slider-item {
+      flex: 0 0 100%;
+      padding-right: 0;
+    }
+
+    .section-header {
+      .section-subtitle {
+        font-size: 0.8rem;
+      }
+
+      .section-title {
+        font-size: 1.4rem;
+      }
+
+      .section-description {
+        font-size: 0.85rem;
+      }
+    }
+
+    .card .image-container img {
+      height: 200px;
+    }
+  }
+
+  @media (min-width: 577px) and (max-width: 768px) {
+    .slider-item {
+      flex: 0 0 calc(100% / 2 - 12px);
+      padding-right: 12px;
+    }
+
+    .section-header {
+      .section-subtitle {
+        font-size: 0.85rem;
+      }
+
+      .section-title {
+        font-size: 1.6rem;
+      }
+
+      .section-description {
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  @media (min-width: 769px) {
+    .slider-item {
+      flex: 0 0 calc(100% / 3 - 17px);
+    }
+
+    .section-header {
+      .section-subtitle {
+        font-size: 0.9rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .section-description {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}

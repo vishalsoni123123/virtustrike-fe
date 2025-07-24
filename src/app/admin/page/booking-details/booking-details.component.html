@@ -1,0 +1,56 @@
+<!-- Booking List Header -->
+<h2 class="heading">Booking List</h2>
+
+<!-- Booking Table -->
+<div class="booking-table-container">
+  <table class="booking-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>DATE</th>
+        <th>FULL NAME</th>
+        <th>PLAYERS</th>
+        <th>CENTER</th>
+        <th>TOTAL PRICE</th>
+        <th>PAYMENT STATUS</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let booking of bookings; let i = index">
+        <td>{{ i + 1 + (page * size) }}</td>
+        <td>{{ booking.bookingDate | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ booking.fullName }}</td>
+        <td>{{ booking.player }} Player</td>
+        <td>{{ booking.centerName }}</td>
+        <td> &#8377; {{ booking.totalPrice }}</td>
+        <td>
+          <span class="status" [ngClass]="(booking.paymentStatus || 'na').toLowerCase()">
+            {{ booking.paymentStatus || 'N/A' }}
+          </span>
+
+        </td>
+        <td>
+          <button class="view-btn" (click)="viewDetails(booking.id)">View</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <button (click)="previousPage()" [disabled]="page === 0">Previous</button>
+
+    <button *ngFor="let p of [].constructor(totalPages); let i = index" (click)="goToPage(i)"
+      [class.active]="page === i">
+      {{ i + 1 }}
+    </button>
+
+    <button (click)="nextPage()" [disabled]="page + 1 >= totalPages">Next</button>
+  </div>
+</div>
+
+<!-- No Bookings -->
+<ng-template #noBookings>
+  <p>No bookings available.</p>
+</ng-template>

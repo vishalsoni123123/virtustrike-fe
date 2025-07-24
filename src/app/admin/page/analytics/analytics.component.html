@@ -1,0 +1,25 @@
+<!-- Analytics Dashboard -->
+<h2 class="heading"> Analytics Dashboard</h2>
+
+<!-- Analytics Cards -->
+<div class="analytics-grid">
+  <div class="card" *ngIf="maxPlayerChartData.labels?.length">
+    <h3> Max Players</h3>
+    <canvas baseChart [data]="maxPlayerChartData" [options]="chartOptions" [type]="'bar'"></canvas>
+  </div>
+
+  <div class="card" *ngIf="slotBookingChartData.labels?.length">
+    <h3> Slot Bookings</h3>
+    <canvas baseChart [data]="slotBookingChartData" [options]="chartOptions" [type]="'bar'"></canvas>
+  </div>
+
+  <div class="card" *ngIf="revenueChartData.labels?.length">
+    <h3> Revenue Summary</h3>
+    <canvas baseChart [data]="revenueChartData" [options]="chartOptions" [type]="'bar'"></canvas>
+  </div>
+
+  <div class="card" *ngIf="userSummaryChartData.labels?.length">
+    <h3> User Summary</h3>
+    <canvas baseChart [data]="userSummaryChartData" [options]="chartOptions" [type]="'doughnut'"></canvas>
+  </div>
+</div>

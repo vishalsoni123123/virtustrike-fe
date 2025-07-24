@@ -1,0 +1,131 @@
+<!-- Start Page Banner Area -->
+<div class="page-banner-area bg-2 ptb-100">
+  <div class="container">
+    <!-- <div class="page-banner-content">
+      <ul>
+        <li><a routerLink="/">Home</a></li>
+        <li>Register</li>
+      </ul>
+    </div> -->
+  </div>
+</div>
+
+<!-- Register Form Container -->
+<div class="register-container">
+  <h3 class="text-center">Get Started</h3>
+  <h2 class="text-center">Create Your <span style="color: rgb(255, 0, 255);">Account</span></h2>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+    <!-- Full Name -->
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-text"><i class="fas fa-user"></i></span>
+        <input type="text" formControlName="fullName" class="form-control" placeholder="Enter your full name"
+          [ngClass]="{'is-invalid': isInvalid('fullName')}">
+      </div>
+      <small class="text-danger" *ngIf="isInvalid('fullName')">Minimum 3 characters required.</small>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+        <input type="email" formControlName="email" class="form-control" placeholder="Enter your email"
+          [ngClass]="{'is-invalid': isInvalid('email')}">
+      </div>
+      <small class="text-danger" *ngIf="isInvalid('email')">Enter a valid email.</small>
+    </div>
+
+    <!-- Mobile Number -->
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+        <input type="text" formControlName="mobileNumber" class="form-control" placeholder="Enter your mobile number"
+          [ngClass]="{'is-invalid': isInvalid('mobileNumber')}">
+      </div>
+      <small class="text-danger" *ngIf="isInvalid('mobileNumber')">Enter a valid 10-digit number.</small>
+    </div>
+
+    <!-- DOB -->
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+        <input type="date" formControlName="dob" class="form-control" [ngClass]="{'is-invalid': isInvalid('dob')}">
+      </div>
+      <small class="text-danger" *ngIf="isInvalid('dob')">Date of birth is required.</small>
+    </div>
+
+    <!-- Gender -->
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
+        <select formControlName="gender" class="form-control" [ngClass]="{'is-invalid': isInvalid('gender')}">
+          <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <small class="text-danger" *ngIf="isInvalid('gender')">Gender is required.</small>
+    </div>
+
+    <!-- Password -->
+    <div class="form-group position-relative">
+      <div class="input-group">
+        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+        <input [type]="showPassword ? 'text' : 'password'" formControlName="password" class="form-control"
+          placeholder="Enter your password" (input)="onPasswordInput()"
+          [ngClass]="{'is-invalid': isInvalid('password')}">
+        <button *ngIf="passwordEntered" type="button" class="password-toggle btn" (click)="togglePasswordVisibility()">
+          <i class="fas" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+        </button>
+      </div>
+
+      <!-- Password Validation Messages -->
+      <small class="text-danger" *ngIf="registerForm.get('password')?.hasError('required') && passwordEntered">
+        Password is required.
+      </small>
+      <small class="text-danger" *ngIf="registerForm.get('password')?.hasError('minlength') && passwordEntered">
+        Password must be at least 6 characters.
+      </small>
+      <small class="text-danger" *ngIf="registerForm.get('password')?.hasError('pattern') && passwordEntered">
+        Password must include 1 uppercase, 1 number, and 1 special character.
+      </small>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="text-center">
+      <button type="submit" [disabled]="registerForm.invalid" class="btn btn-success">
+        REGISTER
+      </button>
+    </div>
+
+    <!-- Sign-in Redirect -->
+    <div class="text-center mt-3">
+      <p>
+        Already have an account?
+        <a routerLink="/sign-in" style="color: rgb(255, 0, 255); text-decoration: underline;">Sign In here</a>
+      </p>
+    </div>
+
+  </form>
+</div>
+
+<!-- Register Success Modal -->
+<div class="modal fade" #registerSuccessModal tabindex="-1" aria-labelledby="registerSuccessLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="registerSuccessLabel">🎉 Registration Successful!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Congratulations! Your account has been successfully created. 🎊
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,94 @@
+<!-- Sign In Page Banner -->
+<div class="sign-in-page-banner">
+    <div class="container">
+        <div class="page-banner-content">
+            <!-- <h2>Sign In</h2> -->
+        </div>
+    </div>
+</div>
+
+<!-- Sign In Form -->
+<div class="sign-in">
+    <div class="container">
+        <div class="sign-in-form">
+            <h2>Sign In Here</h2>
+            <p>Welcome back, please sign in to your account</p>
+
+            <form [formGroup]="signInForm" (ngSubmit)="onSignIn()">
+
+                <!-- Mobile Number -->
+                <div class="form-group">
+                    <label>Mobile Number *</label>
+                    <div class="custom-phone-input">
+                        <span class="country-code">+91</span>
+                        <input type="text" class="form-control" formControlName="mobileNumber" maxlength="10"
+                            placeholder="Enter mobile number" (keypress)="allowOnlyNumbers($event)" />
+                    </div>
+                    <div *ngIf="signInForm.get('mobileNumber')?.touched && signInForm.get('mobileNumber')?.errors"
+                        class="text-danger mt-1">
+                        <div *ngIf="signInForm.get('mobileNumber')?.errors?.['required']">
+                            Mobile Number is required.
+                        </div>
+                        <div *ngIf="signInForm.get('mobileNumber')?.errors?.['pattern']">
+                            Please enter a valid 10-digit number.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group password-wrapper">
+                    <label>Password *</label>
+                    <div class="input-group">
+                        <input [type]="showPassword ? 'text' : 'password'" class="form-control password-input"
+                            formControlName="password" placeholder="Enter your password" />
+                        <span class="toggle-password" (click)="togglePassword()">
+                            <i [ngClass]="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+                        </span>
+                    </div>
+
+                    <div *ngIf="signInForm.get('password')?.touched && signInForm.get('password')?.errors"
+                        class="text-danger">
+                        <div *ngIf="signInForm.get('password')?.errors?.['required']">
+                            Password is required.
+                        </div>
+                        <div *ngIf="signInForm.get('password')?.errors?.['minlength']">
+                            Password must be at least 6 characters.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Remember Me & Forgot Password -->
+                <div class="form-check-container d-flex justify-content-between align-items-center">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="rememberMe" formControlName="rememberMe" />
+                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                    </div>
+
+                    <div class="forgot-password">
+                        <a routerLink="/forgot-password">Forgot Password?</a>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="default-btn" [disabled]="signInForm.invalid || isLoading">
+                    {{ isLoading ? 'Signing In...' : 'Sign In Now' }}
+                </button>
+
+                <!-- Create Account Link -->
+                <div class="account-text mt-3">
+                    <span>Don’t have an account? <a routerLink="/register">Register here</a></span>
+                </div>
+            </form>
+
+            <!-- Success & Error Messages -->
+            <div *ngIf="signInSuccess" class="alert alert-success mt-3">
+                Login successful! Redirecting to OTP...
+            </div>
+
+
+            <div *ngIf="signInError" class="alert alert-danger mt-3">
+                {{ signInError }}
+            </div>
+        </div>
+    </div>
+</div>

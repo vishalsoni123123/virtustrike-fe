@@ -1,0 +1,107 @@
+<!-- Header -->
+<h2 class="heading">Customer List</h2>
+
+<!-- Customer Section -->
+<div class="customer-section" *ngIf="!selectedUser">
+  <table class="custom-table" *ngIf="customers.length > 0; else noCustomers">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>FULL NAME</th>
+        <th>EMAIL</th>
+        <th>MOBILE NUMBER</th>
+        <th>DATE OF BIRTH</th>
+        <th>GENDER</th>
+        <th>ACTIONS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customer of customers; index as i">
+        <td>{{ i + 1 + (page - 1) * size }}</td>
+        <td>{{ customer.fullName }}</td>
+        <td>{{ customer.email }}</td>
+        <td>{{ customer.mobileNumber }}</td>
+        <td>{{ customer.dateOfBirth | date: 'dd-MM-yyyy' }}</td>
+        <td>{{ customer.gender }}</td>
+        <td>
+          <button class="custom-view-btn" (click)="viewCustomer(customer)">
+            <i class="ti ti-eye"></i> View
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- No Customers Found -->
+  <ng-template #noCustomers>
+    <p>No customers found.</p>
+  </ng-template>
+
+  <!-- Pagination -->
+  <div class="pagination" *ngIf="totalItems > size">
+    <button [disabled]="page === 1" (click)="onPageChange(page - 1)">Previous</button>
+    <button *ngFor="let p of [].constructor(totalPages); let i = index" [class.active]="i + 1 === page"
+      (click)="onPageChange(i + 1)">
+      {{ i + 1 }}
+    </button>
+    <button [disabled]="page >= totalPages" (click)="onPageChange(page + 1)">Next</button>
+  </div>
+</div>
+
+<!-- Full Customer Detail View -->
+<div class="customer-details-view" *ngIf="selectedUser">
+  <h2>Customer Details</h2>
+  <div class="details-grid">
+    <div class="row">
+      
+      <div class="row">
+        <div class="field">
+          <label>ID</label>
+          <div class="readonly-box">{{ selectedUser.id }}</div>
+        </div>
+        <div class="field">
+          <label>Full Name</label>
+          <div class="readonly-box">{{ selectedUser.fullName }}</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>Created Date</label>
+          <div class="readonly-box">{{ selectedUser.createdAt | date: 'dd-MM-yyyy' }}</div>
+        </div>
+        <div class="field">
+          <label>Created Time</label>
+          <div class="readonly-box">{{ selectedUser.createdAt | date: 'hh:mm a' }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>Email</label>
+        <div class="readonly-box">{{ selectedUser.email }}</div>
+      </div>
+      <div class="field">
+        <label>Mobile Number</label>
+        <div class="readonly-box">{{ selectedUser.mobileNumber }}</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>Gender</label>
+        <div class="readonly-box">{{ selectedUser.gender }}</div>
+      </div>
+      <div class="field">
+        <label>Date of Birth</label>
+        <div class="readonly-box">{{ selectedUser.dateOfBirth | date: 'dd-MM-yyyy' }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="action-buttons">
+    <button class="close-btn" (click)="closeView()">Close</button>
+  </div>
+</div>

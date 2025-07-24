@@ -1,0 +1,387 @@
+.heading {
+  text-align: left;
+  font-size: 26px;
+  margin-bottom: 25px;
+  margin-left: 1rem;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #3376ff 40%, #de28ff 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: inline-block;
+  transition: all 0.3s ease-in-out;
+  font-weight: 600;
+  padding-left: 10px;
+}
+
+.game-container {
+  max-width: 100%;
+  margin: 10px auto;
+  padding: 0 15px;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+
+  .loading,
+  .no-data {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #888;
+    margin-top: 2rem;
+  }
+
+  .games-table {
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: linear-gradient(#101934, #101934) padding-box,
+        linear-gradient(to right, #de28ff, #3376ff) border-box;
+      border: 1.5px solid transparent;
+      border-radius: 12px;
+      overflow: hidden;
+      table-layout: fixed;
+
+      th,
+      td {
+        padding: 0.8rem 1rem;
+        text-align: center;
+        border-bottom: 1px solid #333244;
+        color: #ccc;
+      }
+
+      th {
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      tr:hover {
+        background-color: rgb(32, 16, 69);
+      }
+
+      .no-img,
+      .no-video {
+        color: #aaa;
+        font-style: italic;
+      }
+
+      button {
+        background: linear-gradient(to right, #de28ff, #3376ff);
+        padding: 0.5rem 1rem;
+        border-radius: 15px 10px 15px 10px;
+        color: white;
+        font-weight: bold;
+        text-transform: uppercase;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: background 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+          background: linear-gradient(to right, #a83eff, #00a4ff);
+        }
+      }
+    }
+  }
+
+  .game-thumbnail {
+    width: 100px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+
+    button {
+      padding: 0.5rem 1.2rem;
+      border-radius: 6px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s ease;
+
+      &:disabled {
+        background-color: #999;
+        cursor: not-allowed;
+      }
+
+      &:hover:not(:disabled) {
+        background-color: #000;
+      }
+    }
+
+    span {
+      font-weight: 500;
+      font-size: 1rem;
+      color: #444;
+    }
+  }
+
+  // Game Details Section
+  .game-details {
+    max-width: 100%;
+    margin: 10px auto;
+    padding: 30px;
+    font-family: 'Segoe UI', sans-serif;
+    background:
+      linear-gradient(#101934, #101934) padding-box,
+      linear-gradient(to right, #de28ff, #3376ff) border-box;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    animation: fadeIn 0.5s ease-in-out;
+
+    .form-group {
+      display: grid;
+      gap: 1rem;
+
+      label {
+        font-weight: 500;
+        color: rgb(222, 40, 255);
+      }
+
+      input,
+      select,
+      textarea {
+        background-color: #201045;
+        border: 1px solid #444;
+        border-radius: 10px;
+        padding: 12px 14px;
+        font-size: 15px;
+        color: #f1f1f1;
+        width: 100%;
+        transition: border 0.2s ease;
+
+        &::placeholder {
+          color: #aaa;
+        }
+
+        &:focus {
+          outline: none;
+          border: 2px solid #00cec9;
+        }
+      }
+
+      .inline-group {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+
+        >div {
+          flex: 1 1 30%;
+          display: flex;
+          flex-direction: column;
+        }
+
+        input {
+          width: 100%;
+        }
+
+        @media (max-width: 768px) {
+          flex-direction: column;
+
+          >div {
+            width: 100%;
+          }
+        }
+      }
+
+      // Hide spinner for number inputs (Chrome, Safari, Edge)
+      input[type='number']::-webkit-outer-spin-button,
+      input[type='number']::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      // Hide spinner for number inputs (Firefox)
+      input[type='number'] {
+        -moz-appearance: textfield;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+    }
+
+    .file-upload-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      label {
+        font-weight: 500;
+        color: rgb(222, 40, 255);
+        margin-bottom: 5px;
+        margin-top: 1rem;
+      }
+
+      input[type="file"] {
+        background-color: #201045;
+        padding: 7px;
+        border-radius: 6px;
+        color: #ccc;
+        font-size: 13px;
+        border: 1px solid #444;
+        width: 543px;
+
+        &::file-selector-button {
+          background: linear-gradient(to right, #de28ff, #3376ff);
+          color: #fff;
+          border: none;
+          padding: 7px;
+          border-radius: 10px;
+          cursor: pointer;
+
+          &:hover {
+            background: linear-gradient(to right, #de28ff, #3376ff);
+            transform: scale(1.05);
+          }
+        }
+      }
+    }
+
+
+    .preview-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+
+      .thumb {
+        width: 160px;
+        height: 120px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        border: 1px solid #444;
+
+        img,
+        video {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        video {
+          background-color: #000;
+          pointer-events: none;
+        }
+      }
+    }
+
+    .media-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+
+      .media-box {
+        flex: 1 1 calc(50% - 1rem);
+        max-width: 48%;
+        display: flex;
+        justify-content: center;
+
+        img,
+        video {
+          width: 100%;
+          max-height: 320px;
+          object-fit: cover;
+          border-radius: 10px;
+          box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        video.carousel-media {
+          pointer-events: none; 
+        }
+      }
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-top: 2rem;
+
+      button {
+        flex: 1;
+        padding: 0.8rem 1.2rem;
+        font-size: 1rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+
+        &.back-btn {
+          background: linear-gradient(to right, #ff6ec4, #7873f5); 
+          color: #fdf4ff;
+          font-weight: 600;
+          border: none;
+          border-radius: 15px 10px 15px 10px;
+          padding: 0.8rem 1.2rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-transform: uppercase;
+          box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+
+          &:hover {
+            background: linear-gradient(to right, #f740a1, #5e59d5); 
+            transform: scale(1.03);
+          }
+        }
+
+        &.update-btn {
+          background: linear-gradient(to right, #de28ff, #3376ff);
+          border-radius: 15px 10px 15px 10px;
+          color: white;
+          box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+
+          &:hover {
+            background: linear-gradient(to right, #a83eff, #00a4ff);
+            transform: scale(1.03);
+          }
+        }
+      }
+    }
+
+    @media (max-width: 768px) {
+      .btn-group {
+        flex-direction: column;
+      }
+
+      .file-upload-row {
+        flex-direction: column;
+      }
+
+      .preview-row {
+        justify-content: center;
+      }
+
+      .media-row {
+        flex-direction: column;
+
+        .media-box {
+          max-width: 100%;
+        }
+      }
+    }
+  }
+}

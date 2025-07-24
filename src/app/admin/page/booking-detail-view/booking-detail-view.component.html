@@ -1,0 +1,89 @@
+<div class="booking-details-view" *ngIf="booking; else errorTemplate">
+  <h2>Booking Details</h2>
+
+  <!-- Booking Information -->
+  <div class="details-grid">
+    <div class="row">
+      <div class="field">
+        <label>Booking Date</label>
+        <div class="readonly-box">{{ booking.bookingDate | date: 'dd/MM/yyyy' }}</div>
+      </div>
+      <div class="field">
+        <label>Full Name</label>
+        <div class="readonly-box">{{ booking.fullName }}</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>Game</label>
+        <div class="readonly-box">{{ booking.gameName }}</div>
+      </div>
+      <div class="field">
+        <label>Slot Date</label>
+        <div class="readonly-box">{{ booking.slotDate | date: 'dd/MM/yyyy' }}</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>Slot Time</label>
+        <div class="readonly-box">{{ booking.slotTime }}</div>
+      </div>
+      <div class="field">
+        <label>Players</label>
+        <div class="readonly-box">{{ booking.player }}</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>Price Per Hour</label>
+        <div class="readonly-box">{{ booking.pricePerHour }}</div>
+      </div>
+      <div class="field">
+        <label>Total Price</label>
+        <div class="readonly-box">{{ booking.totalPrice }}</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>Center</label>
+        <div class="readonly-box">{{ booking.centerName }}</div>
+      </div>
+      <div class="field">
+        <label>Payment Status</label>
+        <div class="readonly-box">{{ booking.paymentStatus || 'N/A'}}</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>Payment Method</label>
+        <div class="readonly-box">{{ booking.paymentMethod || 'N/A' }}</div>
+      </div>
+      <div class="field">
+        <label>Transaction ID</label>
+        <div class="readonly-box">{{ booking.transactionId || 'N/A' }}</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field" *ngIf="booking.paidAt">
+        <label>Paid At</label>
+        <div class="readonly-box">{{ booking.paidAt | date: 'dd/MM/yyyy HH:mm' }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="action-buttons">
+    <button class="close-btn" (click)="closeView()">Close</button>
+  </div>
+</div>
+
+<!-- Error Template -->
+<ng-template #errorTemplate>
+  <p class="error-message">{{ errorMessage || 'Booking not found.' }}</p>
+</ng-template>

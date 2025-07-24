@@ -1,0 +1,125 @@
+.booking-details-view {
+    max-width: 98%;
+    margin: 3rem auto;
+    padding: 30px;
+    font-family: 'Segoe UI', sans-serif;
+    background:
+        linear-gradient(#101934, #101934) padding-box,
+        linear-gradient(to right, #de28ff, #3376ff) border-box;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+
+    h2 {
+        margin-bottom: 1.5rem;
+        font-size: 1.7rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        background: linear-gradient(90deg, #3376ff 40%, #de28ff 60%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-align: center;
+    }
+
+    .details-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-top: 2rem;
+
+        .row {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+
+            .field {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+
+                label {
+                    font-weight: 600;
+                    margin-bottom: 5px;
+                    color: #de28ff;
+                    font-size: 0.95rem;
+                    text-transform: uppercase;
+                }
+
+                .readonly-box {
+                    background: rgb(32, 16, 69);
+                    padding: 10px 14px;
+                    border-radius: 6px;
+                    font-size: 15px;
+                    color: #ccc;
+                    box-shadow: inset 0 0 5px rgba(222, 40, 255, 0.4);
+                    line-height: 1.5;
+                }
+            }
+        }
+    }
+
+    .action-buttons {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+
+        .close-btn {
+            background: linear-gradient(to right, #ff6ec4, #7873f5);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 15px 10px 15px 10px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            transition: transform 0.3s;
+
+            &:hover {
+                transform: scale(1.05);
+            }
+        }
+    }
+
+    .error-message {
+        color: #dc3545;
+        text-align: center;
+        font-size: 1.1rem;
+        font-weight: 500;
+        background-color: #ffe5e5;
+        padding: 1rem;
+        border: 1px solid #f5c2c7;
+        border-radius: 0.5rem;
+        margin-top: 2rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+    .booking-details-view {
+        padding: 1.2rem;
+
+        .details-grid {
+            .row {
+                flex-direction: column;
+            }
+        }
+
+        .action-buttons {
+            flex-direction: column;
+
+            .close-btn {
+                width: 100%;
+            }
+        }
+
+        h2 {
+            font-size: 1.5rem;
+        }
+    }
+}

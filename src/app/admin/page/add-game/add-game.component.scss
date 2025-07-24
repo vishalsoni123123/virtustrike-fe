@@ -1,0 +1,168 @@
+.heading {
+  text-align: left;
+  font-size: 26px;
+  margin-bottom: 25px;
+  margin-left: 1rem;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #3376ff 40%, #de28ff 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: inline-block;
+  transition: all 0.3s ease-in-out;
+  font-weight: 600;
+  padding-left: 10px;
+}
+
+.game-add-container {
+  max-width: 100%;
+  margin: 10px auto;
+  padding: 0 15px;
+  font-family: 'Segoe UI', sans-serif;
+
+  // Hide spinner for number inputs (Chrome, Safari, Edge)
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  // Hide spinner for number inputs (Firefox)
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+
+  .card-section {
+    background:
+      linear-gradient(#101934, #101934) padding-box,
+      linear-gradient(to right, #de28ff, #3376ff) border-box;
+    border: 1px solid transparent;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    input,
+    textarea {
+      background-color: #201045;
+      box-shadow: inset 0 0 6px rgba(222, 40, 255, 0.5);
+      border: 1px solid #444;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 15px;
+      color: #f1f1f1;
+      width: 100%;
+      transition: border 0.2s ease;
+
+      &::placeholder {
+        color: #aaa;
+      }
+
+      &:focus {
+        outline: none;
+        border: 2px solid #00cec9;
+      }
+    }
+
+    .field-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+
+      input,
+      textarea {
+        flex: 1 1 calc(33.333% - 10px);
+      }
+
+      @media (max-width: 768px) {
+
+        input,
+        textarea {
+          flex: 1 1 100%;
+        }
+      }
+    }
+
+    .file-upload {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 14px;
+
+      label {
+        font-weight: 500;
+        color: #ccc;
+      }
+
+      input[type='file'] {
+        background-color: #201045;
+        padding: 10px;
+        border-radius: 8px;
+        color: #ccc;
+        font-size: 14px;
+        border: 1px solid #444;
+
+        &::file-selector-button {
+          background: linear-gradient(to right, #de28ff, #3376ff);
+          color: #fff;
+          border: none;
+          padding: 6px 12px;
+          border-radius: 15px 10px 15px 10px;
+          margin-right: 10px;
+          cursor: pointer;
+          transition: background 0.3s ease;
+
+          &:hover {
+            background: linear-gradient(to right, #a83eff, #00a4ff);
+            transform: scale(1.03);
+          }
+        }
+      }
+    }
+
+    .image-preview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+
+      .thumb {
+        width: 70px;
+        height: 70px;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #444;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+
+    button {
+      background: linear-gradient(to right, #de28ff, #3376ff);
+      padding: 0.5rem 1rem;
+      border-radius: 15px 10px 15px 10px;
+      color: white;
+      font-weight: bold;
+      text-transform: uppercase;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: background 0.3s ease;
+      cursor: pointer;
+
+      &:disabled {
+        background: #555;
+        cursor: not-allowed;
+      }
+
+      &:hover {
+        background: linear-gradient(to right, #a83eff, #00a4ff);
+        transform: scale(1.03);
+      }
+    }
+  }
+}

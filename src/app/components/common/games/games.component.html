@@ -1,0 +1,65 @@
+<div class="game has-before" id="game">
+  <div class="container">
+    <p class="section-subtitle">Play Your Favorite</p>
+    <h1 class="h1 title game-title">Explore <br> Our Games</h1>
+
+    <div class="game-banner">
+      <!-- Background image -->
+      <img src="assets/images/home-img/hero-banner-bg.png" alt="game background" class="game-banner-bg" />
+
+      <!-- Foreground image -->
+      <img src="assets/images/home-img/hero-banner.png" width="850" height="414" alt="game banner" class="w-100" />
+    </div>
+  </div>
+</div>
+
+<!-- Who We Are Section -->
+<div class="who-we-are-section">
+  <div class="container text-center">
+    <p class="section-subtitle">WHO WE ARE</p>
+    <h2 class="section-title">
+      PASSIONATE ABOUT <span style="color: #a259ff;">GAMING</span>
+    </h2>
+    <p class="section-description">
+      Unigine is built by gamers, for gamers. From epic tournaments to community-building,
+      our mission is to elevate the gaming experience.
+    </p>
+  </div>
+</div>
+
+<!-- Games Section -->
+<div class="game-container">
+  <div class="game-list" *ngIf="!loading && games.length > 0">
+    <div class="game-card" *ngFor="let game of games">
+      <img *ngIf="game.fullImageUrl" [src]="game.fullImageUrl" alt="{{ game.name }}" class="game-img"
+        (error)="game.fullImageUrl = null" />
+      <div *ngIf="!game.fullImageUrl" class="no-image">No Image Available</div>
+
+      <h3>{{ game.name }}</h3>
+      <p>{{ game.description }}</p>
+      <p *ngIf="game.minPlayers || game.maxPlayers">
+        <strong>Players:</strong>
+        <ng-container *ngIf="game.minPlayers && game.maxPlayers">
+          {{ game.minPlayers }} - {{ game.maxPlayers }}
+        </ng-container>
+        <ng-container *ngIf="game.minPlayers && !game.maxPlayers">
+          {{ game.minPlayers }}
+        </ng-container>
+      </p>
+
+
+      <!-- Btn -->
+      <button (click)="viewGame(game)" class="view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+<!-- No Games Found -->
+<div *ngIf="!loading && games.length === 0">
+  <p>No games found.</p>
+</div>
+
+<!-- Loading -->
+<div *ngIf="loading">
+  <p>Loading games...</p>
+</div>
