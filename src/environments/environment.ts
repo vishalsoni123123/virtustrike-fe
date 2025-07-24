@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    backendBaseUrl: 'http://13.203.209.207:8080/virtustrike-management-api-local'
+    backendBaseUrl: 'http://15.207.88.44:8080/virtustrike-management-api-local'
 };
 
 
