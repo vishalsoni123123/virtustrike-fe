@@ -27,7 +27,7 @@ export class PaymentService {
 
   // Send Invoice
   sendInvoice(bookingId: number) {
-  return this.http.post(`http://15.207.88.44:8080/api/billing/send-invoice/${bookingId}`, {}, { responseType: 'text' });
+  return this.http.post(`https://virtustrike.com/api/billing/send-invoice/${bookingId}`, {}, { responseType: 'text' });
 }
 
 }

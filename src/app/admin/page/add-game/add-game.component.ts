@@ -80,7 +80,7 @@ export class AddGameComponent {
 
     this.http
       .post(
-        `http://15.207.88.44:8080/virtustrike-management-api-local/admin/game/addgameWithPhotos?GameAddRequestModelJson=${encodedData}`,
+        `https://virtustrike.com/virtustrike-management-api-local/admin/game/addgameWithPhotos?GameAddRequestModelJson=${encodedData}`,
         formData
       )
       .subscribe({
