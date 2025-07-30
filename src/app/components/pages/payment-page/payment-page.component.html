@@ -7,4 +7,8 @@
   </div>
 
   <button class="pay-btn" (click)="payNow()">Pay ₹{{ amount }}</button>
+
+  <div *ngIf="statusMessage" class="status" [ngClass]="statusType">
+    {{ statusMessage }}
+  </div>
 </div>

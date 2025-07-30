@@ -1,9 +1,7 @@
-<!-- Header -->
 <h2 class="heading">Game List</h2>
 
 <div class="game-container">
-
-  <!-- Game List View -->
+  <!-- List View -->
   <ng-container *ngIf="!selectedGame">
     <div *ngIf="loading" class="loading">Loading games...</div>
     <div *ngIf="!loading && games.length === 0" class="no-data">No games found.</div>
@@ -37,10 +35,15 @@
               <ng-template #noVideo><span class="no-video">No Video</span></ng-template>
             </td>
             <td>{{ game.name }}</td>
-            <td>₹{{ game.pricePerHour || game.price_per_hour }}</td>
+            <td>₹{{ game.pricePerHour }}</td>
             <td>{{ game.minPlayers }} Player</td>
             <td>{{ game.maxPlayers }} Player</td>
-            <td>{{ game.status }}</td>
+            <td>
+              <select [(ngModel)]="game.status" (change)="updateGameStatus(game)">
+                <option value="ACTIVE">ACTIVE</option>
+                <option value="INACTIVE">INACTIVE</option>
+              </select>
+            </td>
             <td>
               <button (click)="viewGame(game)">View</button>
             </td>
@@ -53,29 +56,23 @@
     <div class="pagination-controls" *ngIf="totalRecords > pageSize">
       <button (click)="onPageChange('prev')" [disabled]="currentPage === 0">Previous</button>
       <span>Page {{ currentPage + 1 }}</span>
-      <button (click)="onPageChange('next')" [disabled]="(currentPage + 1) * pageSize >= totalRecords">
-        Next
-      </button>
+      <button (click)="onPageChange('next')" [disabled]="(currentPage + 1) * pageSize >= totalRecords">Next</button>
     </div>
   </ng-container>
 
-  <!-- Game Detail View -->
+  <!-- Detail View -->
   <ng-container *ngIf="selectedGame">
     <div class="game-details">
-
-      <!-- Media Row -->
       <div class="media-row">
         <div class="media-box">
           <img *ngIf="selectedGame.imageUrl" [src]="selectedGame.imageUrl" alt="Game Image" />
         </div>
         <div class="media-box">
-          <video *ngIf="selectedGame.videoUrl" [src]="selectedGame.videoUrl" autoplay loop muted playsinline controls
-            (loadedmetadata)="forceMute($event)" class="carousel-media"></video>
+          <video *ngIf="selectedGame.videoUrl" [src]="selectedGame.videoUrl" autoplay loop muted playsinline controls></video>
         </div>
       </div>
 
-
-      <!-- Editable Fields -->
+      <!-- Editable Form -->
       <div class="form-group">
         <label>Name:</label>
         <input type="text" [(ngModel)]="selectedGame.name" />
@@ -83,7 +80,6 @@
         <label>Description:</label>
         <textarea [(ngModel)]="selectedGame.description"></textarea>
 
-        <!-- Price , Min , Max Players -->
         <div class="form-group inline-group">
           <div>
             <label>Price/Hour:</label>
@@ -99,7 +95,6 @@
           </div>
         </div>
 
-        <!-- Status + Center ID -->
         <div class="inline-group">
           <div>
             <label>Status:</label>
@@ -115,33 +110,31 @@
         </div>
       </div>
 
-      <!-- File Uploads -->
+      <!-- File Upload -->
       <div class="file-upload-row">
         <div>
           <label>Upload Image</label>
           <input type="file" accept="image/*" (change)="onImageSelected($event)" />
         </div>
-
         <div>
           <label>Upload Video</label>
           <input type="file" accept="video/*" (change)="onVideoSelected($event)" />
         </div>
       </div>
 
-
-      <!-- Preview Section -->
+      <!-- Preview -->
       <div class="preview-row" *ngIf="previewUrls.length">
         <div class="thumb" *ngFor="let url of previewUrls">
-          <ng-container *ngIf="isImage(url); else videoTemplate">
+          <ng-container *ngIf="isImage(url); else videoBlock">
             <img [src]="url" alt="Preview" />
           </ng-container>
-          <ng-template #videoTemplate>
-            <video [src]="url" muted playsinline autoplay loop></video>
+          <ng-template #videoBlock>
+            <video [src]="url" autoplay loop muted playsinline></video>
           </ng-template>
         </div>
       </div>
 
-      <!-- Buttons -->
+      <!-- Actions -->
       <div class="btn-group">
         <button class="update-btn" (click)="updateGame()">Update</button>
         <button class="back-btn" (click)="backToList()">Close</button>

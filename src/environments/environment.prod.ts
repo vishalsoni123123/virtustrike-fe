@@ -1,4 +1,4 @@
 export const environment = {
-    production: true,
+    production: false,
     backendBaseUrl: 'https://virtustrike.com/virtustrike-management-api-local'
 };
