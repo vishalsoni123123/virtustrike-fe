@@ -1,0 +1,53 @@
+<!-- Event + Add Event Button in One Row -->
+<div class="form-section">
+  <div class="form-header-row">
+    <h2 class="heading">Event</h2>
+
+    <!-- Only show Add Event button when form is not visible -->
+    <button class="add-btn" *ngIf="!showForm" (click)="showForm = true">
+      + Add Event
+    </button>
+  </div>
+
+  <!-- Form -->
+  <div *ngIf="showForm" class="form-container">
+    <div class="form-group">
+      <label for="date">Select Date:</label>
+      <input id="date" type="date" [(ngModel)]="selectedDate" />
+    </div>
+
+    <div class="form-group">
+      <label for="event">Event Details:</label>
+      <textarea id="event" [(ngModel)]="eventText" placeholder="Write your event..."></textarea>
+    </div>
+
+    <!-- Save & Close Buttons in a Row -->
+    <div class="form-buttons">
+      <button class="save-btn" (click)="saveEvent()">Save Event</button>
+      <button class="close-btn" (click)="showForm = false">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- All Events Table -->
+<div class="calendar-container">
+  <h2>All Events</h2>
+  <div class="event-list-section">
+
+    <table *ngIf="allEventDates.length > 0" class="event-table">
+      <thead>
+        <tr>
+          <th>DATE</th>
+          <th>EVENT</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let date of allEventDates">
+          <td>{{ date }}</td>
+          <td>{{ events[date] }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="allEventDates.length === 0">No events added yet.</p>
+  </div>
+</div>

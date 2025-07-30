@@ -1,0 +1,48 @@
+<header class="header" [class.active]="isScrolled" data-header>
+  <div class="container">
+    <div class="left-spacer"></div>
+
+    <!-- Logo -->
+    <a routerLink="/" class="logo">
+      <img src="assets/images/web-logo/logo.png" alt="unigine logo" />
+    </a>
+
+    <!-- Navbar -->
+    <nav class="navbar" [class.active]="isNavOpen" data-navbar>
+      <ul class="navbar-list">
+        <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+            (click)="closeNav()">HOME</a></li>
+        <li><a routerLink="/games" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+            (click)="closeNav()">GAMES</a></li>
+        <!-- <li><a routerLink="/tournament" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeNav()">TOURNAMENT</a></li> -->
+        <li><a routerLink="/about" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+            (click)="closeNav()">ABOUT</a></li>
+        <li><a routerLink="/terms-of-service" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+            (click)="closeNav()">SERVICES</a></li>
+        <li><a routerLink="/contact" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+            (click)="closeNav()">CONTACT</a></li>
+
+        <!-- Conditional Button -->
+        <!-- JOIN WITH US: Show when NOT logged in OR when Admin is logged in -->
+        <li *ngIf="!loggedIn || authService.isAdmin()">
+          <a routerLink="/sign-in" class="btn" (click)="closeNav()">JOIN WITH US</a>
+        </li>
+
+        <!-- MY PROFILE: Show ONLY when a USER (not Admin) is logged in -->
+        <li *ngIf="loggedIn && authService.isUser()">
+          <a routerLink="/my-profile" class="btn" (click)="closeNav()">MY PROFILE</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Right Spacer -->
+    <div class="right-spacer"></div>
+
+    <!-- Toggle button -->
+    <button class="nav-toggle-btn" aria-label="toggle menu" (click)="toggleNav()" [class.active]="isNavOpen">
+      <span class="line"></span>
+      <span class="line"></span>
+      <span class="line"></span>
+    </button>
+  </div>
+</header>

@@ -1,0 +1,200 @@
+.game-details-container {
+  background-color: #14092e;
+  color: #ffffff;
+  padding: 2rem;
+  max-width: 1500px;
+  margin: 2rem auto 0 auto;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  animation: fadeIn 0.6s ease-in-out;
+
+  .media-carousel {
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+
+    .carousel-inner {
+      .carousel-item {
+        display: flex;
+        justify-content: center;
+
+        .carousel-media {
+          width: 85%;
+          max-height: 550px;
+          object-fit: cover;
+          border-radius: 12px;
+          pointer-events: none;
+          border: 2px solid #444;
+        }
+
+        video.carousel-media {
+          pointer-events: none;
+        }
+      }
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: rgba(0, 0, 0, 0.4);
+      border-radius: 50%;
+    }
+  }
+
+  .bottom-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+
+    .info-container {
+      flex: 2;
+
+      .title {
+        font-size: 2.6rem;
+        color: #ff00ff;
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+        /* margin-left removed */
+      }
+
+      .details {
+        label {
+          font-size: 1.2rem;
+          color: #4a90e2;
+          font-weight: 600;
+          /* margin-left removed */
+        }
+
+        .description,
+        .story {
+          /* margin-left removed */
+          font-size: 1.1rem;
+          color: #ddd;
+          margin-bottom: 1rem;
+        }
+
+        .players,
+        .price {
+          margin-top: 1rem;
+          font-size: 1.3rem;
+          color: #00ffea;
+        }
+
+        .price {
+          /* margin-left removed */
+        }
+      }
+    }
+
+    .booking-box {
+      flex: 1;
+      background-color: #1d0f3a;
+      padding: 1.5rem 1.8rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      /* margin-right removed */
+      /* if you want spacing, use padding inside or gap in flex container */
+
+      .card-title {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        color: #ffdc00;
+      }
+
+      .card-text {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+        color: #ccc;
+      }
+
+      .book-btn {
+        padding: 0.75rem 1.5rem;
+        background: linear-gradient(to right, #de28ff, #3376ff);
+        color: white;
+        font-weight: bold;
+        text-transform: uppercase;
+        border-radius: 15px 0 15px 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: background 0.3s ease, transform 0.2s ease;
+
+        &:hover {
+          background: linear-gradient(to right, #a83eff, #00a4ff);
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1024px) {
+    padding: 1.5rem;
+
+    .media-carousel {
+      .carousel-media {
+        width: 80%;
+        max-height: 280px;
+      }
+    }
+
+    .bottom-wrapper {
+      flex-direction: column;
+
+      .info-container,
+      .booking-box {
+        flex: 1 1 100%;
+        margin-right: 0; /* remove margin-right on smaller screens */
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .media-carousel {
+      .carousel-media {
+        width: 90%;
+        max-height: 240px;
+      }
+    }
+
+    .title {
+      font-size: 2rem;
+      margin-left: 0; /* reset margin for smaller screens */
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+    }
+
+    .card-text {
+      font-size: 1rem;
+    }
+
+    .details label,
+    .description,
+    .story,
+    .price {
+      margin-left: 0; /* reset margin-left on smaller screens */
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+
+    .media-carousel {
+      .carousel-media {
+        width: 100%;
+        max-height: 180px;
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

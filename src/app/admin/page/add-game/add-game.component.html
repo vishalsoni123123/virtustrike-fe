@@ -1,0 +1,53 @@
+<!-- Header Section -->
+<h2 class="heading">Add New Game</h2>
+
+<div class="game-add-container">
+  
+  <div class="card-section">
+    <!-- Wide Input 1 -->
+    <input type="text" [(ngModel)]="game.name" name="name" placeholder="Game Name" required />
+
+    <!-- Wide Input 2 -->
+    <textarea [(ngModel)]="game.description" name="description" rows="3" placeholder="Game Description"
+      required></textarea>
+
+    <!-- Small Inputs Row -->
+    <div class="field-group">
+      <textarea [(ngModel)]="game.story" name="story" rows="3" placeholder="Game Story" required></textarea>
+    </div>
+
+    <!-- Small Inputs Row -->
+    <div class="field-group">
+      <input type="number" [(ngModel)]="game.minPlayers" name="minPlayers" placeholder="Min Players" required />
+      <input type="number" [(ngModel)]="game.maxPlayers" name="maxPlayers" placeholder="Max Players" required />
+    </div>
+
+    <!-- Small Inputs Row -->
+    <div class="field-group">
+      <input type="number" [(ngModel)]="game.pricePerHour" name="pricePerHour" placeholder="Price Per Hour" required />
+      <input type="number" [(ngModel)]="game.centerId" name="centerId" placeholder="Center ID" required />
+    </div>
+
+    <!-- Image Upload -->
+    <div class="file-upload">
+      <label for="imageUpload">📷 Game Images</label>
+      <input type="file" id="imageUpload" accept="image/*" (change)="onImageSelected($event)" multiple />
+
+      <!-- Video Upload -->
+      <label for="videoUpload">🎥 Game Video</label>
+      <input type="file" id="videoUpload" accept="video/*" (change)="onVideoSelected($event)" />
+    </div>
+
+    <!-- Preview Images -->
+    <div class="image-preview" *ngIf="previewUrls.length">
+      <div *ngFor="let url of previewUrls" class="thumb">
+        <img [src]="url" alt="Preview" />
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="button" (click)="addGame()" [disabled]="isSubmitting">
+      {{ isSubmitting ? 'Adding...' : 'Add Game' }}
+    </button>
+  </div>
+</div>

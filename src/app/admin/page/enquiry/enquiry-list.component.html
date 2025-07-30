@@ -1,0 +1,125 @@
+<!-- Header -->
+<h2 class="heading">Enquiry List</h2>
+
+<!-- Enquiry Table Section -->
+<div class="enquiry-section" *ngIf="!selectedEnquiry">
+  <div class="enquiry-table-container">
+    <table class="custom-table" *ngIf="enquiries.length > 0; else noEnquiries">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>DATE</th>
+          <th>NAME</th>
+          <th>EMAIL</th>
+          <th>MOBILE NUMBER</th>
+          <th>STATUS</th>
+          <th>ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let enquiry of enquiries; index as i">
+          <td>{{ i + 1 + ((page - 1) * size) }}</td>
+          <td>{{ enquiry.submitted_on | date: 'dd-MM-yyyy' }}</td>
+          <td>{{ enquiry.name }}</td>
+          <td>{{ enquiry.email }}</td>
+          <td>{{ enquiry.mobileNumber }}</td>
+          <td>
+            <span class="status" [ngClass]="{
+              'pending': enquiry.status === 'PENDING',
+              'resolved': enquiry.status === 'RESOLVED',
+              'closed': enquiry.status === 'CLOSED',
+              'na': !enquiry.status
+            }">{{ enquiry.status || 'N/A' }}</span>
+          </td>
+          <td>
+            <button class="custom-view-btn" (click)="viewEnquiry(enquiry)">
+              <i class="ti ti-eye"></i> View
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- No Enquiries Found -->
+    <ng-template #noEnquiries>
+      <p>No enquiries found.</p>
+    </ng-template>
+
+    <!-- Pagination -->
+    <div class="pagination" *ngIf="totalPages > 1">
+      <button [disabled]="page === 1" (click)="onPageChange(page - 1)">Previous</button>
+      <button *ngFor="let p of [].constructor(totalPages); let i = index" [class.active]="page === (i + 1)"
+        (click)="onPageChange(i + 1)">
+        {{ i + 1 }}
+      </button>
+      <button [disabled]="page === totalPages" (click)="onPageChange(page + 1)">Next</button>
+    </div>
+  </div>
+</div>
+
+<!-- Enquiry Detail View -->
+<div class="enquiry-view" *ngIf="selectedEnquiry">
+  <div class="details-grid">
+
+    <!-- Name & Email -->
+    <div class="two-cols">
+      <div class="field">
+        <label><strong>Name:</strong></label>
+        <div class="readonly-box">{{ selectedEnquiry.name }}</div>
+      </div>
+      <div class="field">
+        <label><strong>Email:</strong></label>
+        <div class="readonly-box">{{ selectedEnquiry.email }}</div>
+      </div>
+    </div>
+
+    <!-- Mobile & Subject -->
+    <div class="two-cols">
+      <div class="field">
+        <label><strong>Mobile Number:</strong></label>
+        <div class="readonly-box">{{ selectedEnquiry.mobileNumber }}</div>
+      </div>
+      <div class="field">
+        <label><strong>Subject:</strong></label>
+        <div class="readonly-box">{{ selectedEnquiry.subject }}</div>
+      </div>
+    </div>
+
+    <!-- Message, Submitted On, Status -->
+    <div class="three-cols">
+      <div class="field">
+        <label><strong>Message:</strong></label>
+        <div class="readonly-box">{{ selectedEnquiry.description }}</div>
+      </div>
+
+      <div class="field">
+        <label><strong>Submitted On:</strong></label>
+        <div class="readonly-box">{{ selectedEnquiry.submitted_on | date: 'dd-MM-yyyy' }}</div>
+      </div>
+
+      <div class="field">
+        <label><strong>Status:</strong></label>
+        <select [(ngModel)]="updatedStatus">
+          <option value="PENDING">Pending</option>
+          <option value="RESOLVED">Resolved</option>
+          <option value="CLOSED">Closed</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Admin Remark -->
+    <div class="full">
+      <label><strong>Admin Remark:</strong></label>
+      <textarea rows="4" [(ngModel)]="updatedRemark" (input)="onRemarkChangeTextArea()" maxlength="200"></textarea>
+      <div class="char-count">{{ remarkCharCount }}/200</div>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="action-buttons">
+    <button class="update-btn" (click)="updateStatusAndRemark()" [disabled]="!updatedStatus || remarkCharCount > 200">
+      Update
+    </button>
+    <button class="close-btn" (click)="closeView()">Close</button>
+  </div>
+</div>

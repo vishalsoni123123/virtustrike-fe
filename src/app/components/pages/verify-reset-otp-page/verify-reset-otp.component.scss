@@ -1,0 +1,186 @@
+.otp-wrapper {
+  max-width: 400px;
+  margin: 5vh auto;
+  text-align: center;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  h2 {
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 24px;
+  }
+
+  p {
+    margin-bottom: 20px;
+    color: #666;
+    font-size: 14px;
+  }
+
+  .message {
+    margin-bottom: 16px;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 6px;
+
+    &.success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    &.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+  }
+
+  .otp-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 20px;
+
+    input {
+      width: 48px;
+      height: 48px;
+      text-align: center;
+      font-size: 22px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      outline: none;
+      transition: border 0.2s ease;
+
+      &:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 4px #007bff44;
+      }
+    }
+  }
+
+  .verify-btn {
+    padding: 10px 30px;
+    font-size: 16px;
+    background: linear-gradient(to right, #7f00ff, #007bff);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+
+    &:hover {
+      background: linear-gradient(to right, #5a00cc, #0056b3);
+    }
+  }
+
+  // 🔄 Responsive Breakpoints
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+
+    .otp-inputs {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+
+      input {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+      }
+    }
+
+    h2 {
+      font-size: 18px;
+    }
+
+    p {
+      font-size: 13px;
+    }
+
+    .verify-btn {
+      font-size: 14px;
+      padding: 8px 20px;
+    }
+  }
+
+  @media (min-width: 481px) and (max-width: 600px) {
+    padding: 1.2rem;
+
+    h2 {
+      font-size: 20px;
+    }
+
+    .otp-inputs input {
+      width: 40px;
+      height: 40px;
+      font-size: 18px;
+    }
+
+    .verify-btn {
+      font-size: 15px;
+      padding: 9px 24px;
+    }
+  }
+
+  @media (min-width: 601px) and (max-width: 1023px) {
+    padding: 1.6rem;
+
+    h2 {
+      font-size: 22px;
+    }
+
+    .otp-inputs input {
+      width: 44px;
+      height: 44px;
+      font-size: 20px;
+    }
+
+    .verify-btn {
+      font-size: 16px;
+      padding: 10px 26px;
+    }
+  }
+
+  @media (min-width: 1024px) and (max-width: 1439px) {
+    padding: 2rem;
+
+    h2 {
+      font-size: 24px;
+    }
+
+    .otp-inputs input {
+      width: 48px;
+      height: 48px;
+      font-size: 22px;
+    }
+
+    .verify-btn {
+      font-size: 16px;
+      padding: 10px 30px;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    max-width: 450px;
+    padding: 2.2rem;
+
+    h2 {
+      font-size: 26px;
+    }
+
+    .otp-inputs input {
+      width: 52px;
+      height: 52px;
+      font-size: 24px;
+    }
+
+    .verify-btn {
+      font-size: 17px;
+      padding: 12px 34px;
+    }
+  }
+}

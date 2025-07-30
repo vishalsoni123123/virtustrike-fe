@@ -1,0 +1,68 @@
+<div class="booking-main">
+  <h2>Book Your <span>Adventure</span></h2>
+  <p>Adventure is calling! Choose your game, time and players to kickstart the excitement!</p>
+
+  <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()" class="booking-container">
+    <!-- Date Picker -->
+    <div class="card calendar">
+      <h3>Select Date</h3>
+      <input type="date" formControlName="slotDate" [min]="today" class="form-control" />
+    </div>
+
+    <div class="card booking-form">
+      <h3>Booking Details</h3>
+
+      <!-- Game Name -->
+      <label>Game</label>
+      <input type="text" class="form-control" [value]="selectedGame?.name || 'Loading...'" readonly />
+
+      <!-- Slot Dropdown -->
+      <label>Slots Time</label>
+      <div class="slot-dropdown">
+        <div class="dropdown-toggle" (click)="showSlotList = !showSlotList">
+          {{ bookingForm.value.slots.length ? bookingForm.value.slots.length + ' Slot(s) Selected' : 'Select Time Slots'}}
+          <span class="arrow" [class.open]="showSlotList"></span>
+        </div>
+
+        <div class="dropdown-list" *ngIf="showSlotList">
+          <label *ngFor="let slot of availableSlots" class="slot-option">
+            <input type="checkbox" [value]="slot.id" [checked]="isSlotSelected(slot.id)"
+              (change)="toggleSlotSelection(slot.id)" />
+            {{ slot.slotTime }}
+          </label>
+        </div>
+
+        <div class="error" *ngIf="bookingForm.get('slots')?.invalid && bookingForm.get('slots')?.touched">
+          At least one slot must be selected.
+        </div>
+      </div>
+
+      <!-- Player Selection -->
+      <label>Number of Players</label>
+      <select formControlName="player" class="form-control">
+        <option value="">Select Players</option>
+        <option *ngFor="let p of availablePlayers" [value]="p">{{ p }} player{{ p > 1 ? 's' : '' }}</option>
+      </select>
+
+      <!-- Center Selection -->
+      <label>Select Center</label>
+      <select formControlName="centerId" class="form-control">
+        <option value="">Select Center</option>
+        <option *ngFor="let center of centers" [value]="center.id">{{ center.name }}</option>
+      </select>
+
+      <!-- Submit -->
+      <button type="submit" class="btn-book" [disabled]="bookingForm.invalid">
+        Book Now (₹{{ totalPrice }})
+      </button>
+    </div>
+  </form>
+
+  <div class="booking-message" *ngIf="successMessage">
+  {{ successMessage }}
+</div>
+
+</div>
+
+<!-- Why Choose Us -->
+<app-why-choose-us></app-why-choose-us>

@@ -1,0 +1,13 @@
+<!-- Show User Layout -->
+<ng-container *ngIf="!isAdminRoute">
+    <app-navbar></app-navbar>
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+    <ngx-scrolltop></ngx-scrolltop>
+</ng-container>
+
+<!-- Show Admin Layout -->
+<ng-container *ngIf="isAdminRoute">
+    <app-admin-navbar></app-admin-navbar>
+    <router-outlet></router-outlet>
+</ng-container>

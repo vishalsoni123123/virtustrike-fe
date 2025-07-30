@@ -1,0 +1,105 @@
+<div class="game-details-container" *ngIf="game">
+  <!-- Media Carousel -->
+  <div class="media-carousel" *ngIf="mediaSlides.length > 0">
+    <div id="gameCarousel" class="carousel slide" data-bs-ride="carousel">
+
+      <!-- Indicators -->
+      <div class="carousel-indicators">
+        <button *ngFor="let media of mediaSlides; let i = index" type="button" data-bs-target="#gameCarousel"
+          [attr.data-bs-slide-to]="i" [class.active]="i === 0" [attr.aria-current]="i === 0 ? 'true' : null"
+          [attr.aria-label]="'Slide ' + (i + 1)">
+        </button>
+      </div>
+
+      <!-- Slides -->
+      <div class="carousel-inner">
+        <div *ngFor="let media of mediaSlides; let i = index" class="carousel-item" [class.active]="i === 0"
+          [attr.data-bs-interval]="media.toLowerCase().endsWith('.mp4') ? 9999999 : 5000">
+
+          <!-- Image Slide -->
+          <ng-container *ngIf="!media.toLowerCase().endsWith('.mp4'); else videoBlock">
+            <img class="carousel-media d-block w-100" [src]="getImageUrl(media)" [alt]="'Slide ' + (i + 1)">
+          </ng-container>
+
+          <!-- Video Slide -->
+          <ng-template #videoBlock>
+            <video #gameVideo class="carousel-media d-block w-100" autoplay loop muted playsinline
+              (loadedmetadata)="forceMute(gameVideo)">
+              <source [src]="getVideoUrl(media)" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </ng-template>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <!-- <button class="carousel-control-prev" type="button" data-bs-target="#gameCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#gameCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button> -->
+    </div>
+  </div>
+
+  <!-- Bottom Content -->
+  <div class="bottom-wrapper">
+    <!-- Left Game Info -->
+    <div class="info-container">
+      <h2 class="title">{{ game.name }}</h2>
+      <div class="details">
+        <label><strong>Description:</strong></label>
+        <p class="description">{{ game.description }}</p>
+
+        <label><strong>Story:</strong></label>
+        <p class="story">{{ game.story }}</p>
+
+        <div class="players">
+          <label><strong>Players:</strong></label>
+          <span>{{ game.minPlayers }} - {{ game.maxPlayers }}</span>
+        </div>
+
+        <div class="price">
+          ₹{{ game.pricePerHour || game.pricePerPlayer }} /
+          {{ game.pricePerPlayer ? 'player' : 'hour' }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Booking Box -->
+    <div class="booking-box">
+      <div>
+        <h3 class="card-title">Ready to Play?</h3>
+        <p class="card-text">
+          Step into the world of immersive VR action! Book your session now and experience adrenaline-pumping gameplay,
+          realistic environments, and unforgettable moments — all in virtual reality.
+          <strong>Your adventure begins here!</strong>
+        </p>
+      </div>
+
+      <!-- Book Now -->
+      <button class="book-btn" (click)="handleBooking()">Book This Game</button>
+    </div>
+  </div>
+
+  <!-- Login Modal -->
+  <div class="modal" tabindex="-1" [class.show]="showLoginModal" style="display: block;" *ngIf="showLoginModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Login Required</h5>
+          <button type="button" class="btn-close" (click)="showLoginModal = false"></button>
+        </div>
+        <div class="modal-body">
+          <p>You need to login to continue booking this game.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" (click)="showLoginModal = false">Cancel</button>
+          <button class="btn btn-primary" (click)="navigateToLogin()">Login Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

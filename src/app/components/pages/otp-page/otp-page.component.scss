@@ -1,0 +1,222 @@
+.otp-container {
+  max-width: 400px;
+  margin: 120px auto 70px auto;
+  text-align: center;
+  padding: 24px 32px;
+  background:
+    linear-gradient(rgb(57, 41, 92), rgb(57, 41, 92)) padding-box,
+    linear-gradient(to right, #de28ff, #3376ff) border-box;
+  border: 1.5px solid transparent;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+
+  h2 {
+    margin-bottom: 14px;
+    font-size: 24px;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #3376ff 40%, #de28ff 60%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+  }
+
+  .info {
+    color: #ccc;
+    font-size: 14px;
+    margin-bottom: 18px;
+  }
+
+  .otp-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 20px;
+
+    input {
+      width: 42px;
+      height: 48px;
+      font-size: 21px;
+      text-align: center;
+      background: rgb(97, 84, 125);
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      transition: border 0.2s;
+
+      &:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 3px #007bff;
+      }
+    }
+  }
+
+  .submit-btn {
+    display: block;
+    width: 100%;
+    padding: 12px 28px;
+    border: none;
+    background: linear-gradient(to right, #de28ff, #3376ff);
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 15px 0 15px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    font-size: 16.5px;
+
+    &:hover {
+      background: linear-gradient(to right, #a83eff, #00a4ff);
+      transform: scale(1.02);
+    }
+
+    &:disabled {
+      background: linear-gradient(to right, #b79acf, #84a9bd) !important;
+      cursor: not-allowed;
+      opacity: 0.7;
+      transform: none;
+    }
+  }
+
+  .timer-section {
+    margin-top: 16px;
+    color: #ccc;
+
+    .resend-btn {
+      background: none;
+      border: none;
+      color: #00a4ff;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 0;
+      font-size: 15px;
+    }
+  }
+
+  .message-banner {
+    margin-bottom: 14px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 14.5px;
+    font-weight: 500;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .msg-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+
+  .msg-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  // Responsive Breakpoints
+  @media screen and (max-width: 480px) {
+    padding: 14px 16px;
+
+    h2 {
+      font-size: 18px;
+    }
+
+    .otp-inputs input {
+      width: 30px;
+      height: 36px;
+      font-size: 16px;
+    }
+
+    .submit-btn {
+      font-size: 13px;
+      padding: 9px;
+    }
+  }
+
+  @media screen and (min-width: 481px) and (max-width: 600px) {
+    padding: 16px 20px;
+
+    h2 {
+      font-size: 20px;
+    }
+
+    .otp-inputs input {
+      width: 32px;
+      height: 38px;
+      font-size: 17px;
+    }
+
+    .submit-btn {
+      font-size: 14px;
+      padding: 10px;
+    }
+  }
+
+  @media screen and (min-width: 601px) and (max-width: 1023px) {
+    padding: 20px 24px;
+
+    h2 {
+      font-size: 22px;
+    }
+
+    .otp-inputs input {
+      width: 36px;
+      height: 42px;
+      font-size: 18.5px;
+    }
+
+    .submit-btn {
+      font-size: 15.5px;
+      padding: 11px 24px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) and (max-width: 1439px) {
+    padding: 24px 32px;
+
+    .otp-inputs input {
+      width: 42px;
+      height: 48px;
+      font-size: 21px;
+    }
+
+    .submit-btn {
+      font-size: 16.5px;
+      padding: 12px 28px;
+    }
+  }
+
+  @media screen and (min-width: 1440px) {
+    max-width: 450px;
+    padding: 26px 34px;
+
+    h2 {
+      font-size: 26px;
+    }
+
+    .otp-inputs input {
+      width: 46px;
+      height: 52px;
+      font-size: 22px;
+    }
+
+    .submit-btn {
+      font-size: 17.5px;
+      padding: 13px 30px;
+    }
+  }
+}

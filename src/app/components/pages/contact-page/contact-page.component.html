@@ -1,0 +1,73 @@
+<!-- Hero Section -->
+<div class="contact has-before" id="contact">
+  <div class="container">
+    <p class="section-subtitle">We'd Love To Hear From You</p>
+    <h1 class="h1 title contact-title">Contact <br> VirtuStrike Team</h1>
+    <a routerLink="/games" class="btn" data-btn>Book Now</a>
+
+    <div class="contact-banner">
+      <img src="assets/images/home-img/hero-banner-bg.png" alt="contact background" class="contact-banner-bg" />
+      <img src="assets/images/home-img/hero-banner.png" width="850" height="414" alt="contact banner" class="w-100" />
+    </div>
+  </div>
+</div>
+
+<!-- Contact Section -->
+<div class="contact-section" id="contact-form">
+  <div class="map-wrapper">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3679.533355614388!2d75.8870216!3d22.7620547!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39631d645c07d43b%3A0x985f0f95386bf6eb!2sThe%20Hub%20by%20M%20Chugh%20Group!5e0!3m2!1sen!2sin!4v1697111111111!5m2!1sen!2sin"
+      allowfullscreen loading="lazy">
+    </iframe>
+  </div>
+
+  <form class="form-container" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+    <!-- Name -->
+    <div class="input-wrapper">
+      <input type="text" formControlName="name" [placeholder]="isInvalid('name') ? '' : 'Your Name'" (input)="onInput('name')" />
+      <div class="char-count">{{ nameLength }}/30</div>
+      <div *ngIf="isInvalid('name')" class="error">Name is required and must contain only letters</div>
+    </div>
+
+    <!-- Email -->
+    <div class="input-wrapper">
+      <input type="email" formControlName="email" [placeholder]="isInvalid('email') ? '' : 'Your Email'" (input)="onInput('email')" />
+      <div class="char-count">{{ emailLength }}/50</div>
+      <div *ngIf="isInvalid('email')" class="error">Enter a valid email address</div>
+    </div>
+
+    <!-- Mobile -->
+    <div class="input-wrapper">
+      <input type="text" formControlName="mobileNumber" [placeholder]="isInvalid('mobileNumber') ? '' : 'Your Mobile Number'" (input)="onInput('mobileNumber')" />
+      <div class="char-count">{{ mobileNumberLength }}/10</div>
+      <div *ngIf="isInvalid('mobileNumber')" class="error">Enter a valid 10-digit mobile number</div>
+    </div>
+
+    <!-- Subject -->
+    <div class="input-wrapper">
+      <input type="text" formControlName="subject" [placeholder]="isInvalid('subject') ? '' : 'Subject'" (input)="onInput('subject')" />
+      <div class="char-count">{{ subjectLength }}/100</div>
+      <div *ngIf="isInvalid('subject')" class="error">Subject is required and must not exceed 100 characters</div>
+    </div>
+
+    <!-- Message -->
+    <div class="textarea-wrapper">
+      <textarea formControlName="message" [placeholder]="isInvalid('message') ? '' : 'Your Message'" (input)="onInput('message')"></textarea>
+      <div class="char-count">{{ messageLength }}/500</div>
+      <div *ngIf="isInvalid('message')" class="error">Message is required and must be between 10 and 500 characters</div>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit" [disabled]="contactForm.invalid || isSubmitting">Send Message</button>
+  </form>
+</div>
+
+<!-- Modal -->
+<div class="confirmation-modal" *ngIf="showSuccessMessage">
+  <div class="modal-backdrop"></div>
+  <div class="modal-content">
+    <h2>Message Sent Successfully! 🎉</h2>
+    <p>Thank you for reaching out to us. We'll get back to you soon.</p>
+    <button (click)="closeSuccessMessage()">OK</button>
+  </div>
+</div>
