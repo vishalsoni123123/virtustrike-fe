@@ -14,11 +14,14 @@ export class OtpPageComponent implements OnInit, OnDestroy {
   isResendDisabled = true;
   intervalId: any;
 
+  messageText: string = '';
+  messageType: 'success' | 'error' | '' = '';
+
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.otpForm = this.fb.group({
@@ -63,6 +66,7 @@ export class OtpPageComponent implements OnInit, OnDestroy {
   startTimer(): void {
     this.timer = 30;
     this.isResendDisabled = true;
+    clearInterval(this.intervalId);
 
     this.intervalId = setInterval(() => {
       this.timer--;
@@ -73,24 +77,33 @@ export class OtpPageComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
+  showMessage(type: 'success' | 'error', text: string): void {
+    this.messageType = type;
+    this.messageText = text;
+
+    setTimeout(() => {
+      this.messageText = '';
+      this.messageType = '';
+    }, 4000);
+  }
+
   resendOtp(): void {
     this.otpControls.controls.forEach(control => control.reset());
     this.startTimer();
 
     const mobileNumber = localStorage.getItem('loginMobileNumber');
     if (!mobileNumber) {
-      alert('Session expired. Please login again.');
+      this.showMessage('error', 'Session expired. Please login again.');
       this.router.navigate(['/sign-in']);
       return;
     }
 
     this.userService.resendOtp(mobileNumber).subscribe({
       next: () => {
-        console.log('OTP resent successfully');
+        this.showMessage('success', 'OTP resent successfully!');
       },
-      error: (err) => {
-        console.error('Failed to resend OTP:', err);
-        alert('Session expired or invalid. Please login again.');
+      error: () => {
+        this.showMessage('error', 'Failed to resend OTP. Please login again.');
         this.router.navigate(['/sign-in']);
       }
     });
@@ -102,46 +115,51 @@ export class OtpPageComponent implements OnInit, OnDestroy {
       const mobileNumber = localStorage.getItem('loginMobileNumber');
 
       if (!mobileNumber) {
-        alert('Session expired. Please login again.');
+        this.showMessage('error', 'Session expired. Please login again.');
         this.router.navigate(['/sign-in']);
         return;
       }
 
       this.userService.verifyOtp({ mobileNumber, otp: otpValue }).subscribe({
         next: (res) => {
-          console.log('Full login response:', res);
-
           if (res?.data?.user && res?.data?.token) {
             const token = res.data.token;
             const user = res.data.user;
 
-            // ✅ Clear previous session and set new values
             localStorage.clear();
             localStorage.setItem('token', token);
             localStorage.setItem('user', JSON.stringify(user));
 
-            // ✅ Navigate and refresh the page to update navbar
-            if (user.role === 'Admin') {
-              this.router.navigate(['/admin/dashboard']).then(() => {
-                window.location.reload();
-              });
-            } else {
-              this.router.navigate(['/']).then(() => {
-                window.location.reload();
-              });
-            }
+            this.showMessage('success', 'Login successful! Redirecting...');
+
+            setTimeout(() => {
+              if (user.role === 'Admin') {
+                this.router.navigate(['/admin/dashboard']).then(() => window.location.reload());
+              } else {
+                this.router.navigate(['/']).then(() => window.location.reload());
+              }
+            }, 1000);
           } else {
-            alert('Unexpected response format from server.');
+            this.showMessage('error', 'Unexpected server response.');
           }
         },
         error: (err) => {
-          const errorMsg = err?.error?.message || 'Invalid OTP or server error';
-          alert(errorMsg);
-          console.error(err);
+          const statusCode = err?.status;
+          const serverMsg = err?.error?.message;
+
+          if (statusCode === 400 || serverMsg?.toLowerCase()?.includes('invalid otp')) {
+            this.showMessage('error', 'Invalid OTP. Please try again.');
+          } else if (statusCode === 401 || serverMsg?.toLowerCase()?.includes('session expired')) {
+            this.showMessage('error', 'Session expired. Please login again.');
+            this.router.navigate(['/sign-in']);
+          } else {
+            this.showMessage('error', 'Something went wrong. Please try again.');
+          }
         }
       });
     } else {
       this.otpForm.markAllAsTouched();
+      this.showMessage('error', 'Please enter the complete 6-digit OTP.');
     }
   }
 }

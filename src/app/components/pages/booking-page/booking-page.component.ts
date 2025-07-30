@@ -26,6 +26,8 @@ export class BookingPageComponent implements OnInit {
   queryPlayers: number = 0;
   queryPrice: number = 0;
 
+  successMessage: string = '';
+
   constructor(
     private fb: FormBuilder,
     private gameService: GameService,
@@ -178,11 +180,12 @@ isSlotSelected(slotId: number): boolean {
       next: (res) => {
         const bookingDetailId = res?.data?.id;
         if (!bookingDetailId) {
-          alert('❌ Booking failed: ID not received.');
+           this.successMessage = 'Booking failed: No booking ID received.';
           return;
         }
 
-        alert('🎉 Booking successful!');
+        this.successMessage = '🎉 Your booking was successful! Redirecting to payment...';
+        setTimeout(() => this.successMessage = '', 5000);
         this.resetForm();
 
         this.router.navigate(['/payment'], {
@@ -198,7 +201,7 @@ isSlotSelected(slotId: number): boolean {
       },
       error: err => {
         console.error('Booking error:', err);
-        alert('❌ Booking failed. Please try again later.');
+         this.successMessage = ' Booking failed. Please try again later.';
       }
     });
   }

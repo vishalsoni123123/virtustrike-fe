@@ -16,6 +16,7 @@ import { GameDetailsPageComponent } from './components/pages/game-details-page/g
 import { BookingPageComponent } from './components/pages/booking-page/booking-page.component';
 import { OtpPageComponent } from './components/pages/otp-page/otp-page.component';
 import { PaymentPageComponent } from './components/pages/payment-page/payment-page.component';
+import { VerifyResetOtpComponent } from './components/pages/verify-reset-otp-page/verify-reset-otp.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -28,6 +29,7 @@ const routes: Routes = [
     { path: 'contact', component: ContactPageComponent },
     { path: 'sign-in', component: SignInPageComponent },
     { path: 'verify-otp', component: OtpPageComponent },
+    { path: 'verify-reset-otp', component: VerifyResetOtpComponent },
     { path: 'forgot-password', component: ForgotPasswordPageComponent },
     { path: 'register', component: RegisterPageComponent },
     { path: 'my-profile', component: MyProfilePageComponent },
