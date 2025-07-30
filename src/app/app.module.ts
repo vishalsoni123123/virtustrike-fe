@@ -44,6 +44,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { PaymentPageComponent } from './components/pages/payment-page/payment-page.component';
 import { NgChartsModule } from 'ng2-charts';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { VerifyResetOtpComponent } from './components/pages/verify-reset-otp-page/verify-reset-otp.component';
 
 @NgModule({
 	declarations: [

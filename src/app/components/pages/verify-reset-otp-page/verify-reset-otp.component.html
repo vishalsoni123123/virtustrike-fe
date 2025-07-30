@@ -1,0 +1,23 @@
+<div class="otp-wrapper">
+  <h2>Verify OTP</h2>
+  <p>Please enter the 6-digit OTP sent to your mobile number.</p>
+
+  <!-- Success Message -->
+  <div *ngIf="successMessage" class="message success">
+    {{ successMessage }}
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="message error">
+    {{ errorMessage }}
+  </div>
+
+  <form [formGroup]="otpForm" (ngSubmit)="onSubmit()">
+    <div class="otp-inputs" formArrayName="otp">
+      <input *ngFor="let ctrl of otpControls.controls; index as i" id="otp-{{ i }}" type="text" maxlength="1"
+        [formControlName]="i" (input)="moveToNext($event, i)" />
+    </div>
+
+    <button type="submit" class="verify-btn">Verify OTP</button>
+  </form>
+</div>
