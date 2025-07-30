@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UrlService } from './url-service';
@@ -55,9 +55,13 @@ export class GameService {
     }
 
     // UPDATE GAME DETAILS
-    updateGame(gameData: any): Observable<any> {
-        return this.http.put(`${this.baseUrl}/update`, gameData);
-    }
+    updateGame(formData: FormData): Observable<any> {
+    const token = localStorage.getItem('token'); // or however you store it
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.put(`${this.baseUrl}/update`, formData, { headers });
+}
+
 
     // UPDATE GAME STATUS
     updateGameStatus(id: number, status: string): Observable<any> {

@@ -24,43 +24,37 @@
   <form class="form-container" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
     <!-- Name -->
     <div class="input-wrapper">
-      <input type="text" formControlName="name" [placeholder]="isInvalid('name') ? '' : 'Your Name'"
-        (input)="onInput('name')" />
+      <input type="text" formControlName="name" [placeholder]="isInvalid('name') ? '' : 'Your Name'" (input)="onInput('name')" />
       <div class="char-count">{{ nameLength }}/30</div>
       <div *ngIf="isInvalid('name')" class="error">Name is required and must contain only letters</div>
     </div>
 
     <!-- Email -->
     <div class="input-wrapper">
-      <input type="email" formControlName="email" [placeholder]="isInvalid('email') ? '' : 'Your Email'"
-        (input)="onInput('email')" />
+      <input type="email" formControlName="email" [placeholder]="isInvalid('email') ? '' : 'Your Email'" (input)="onInput('email')" />
       <div class="char-count">{{ emailLength }}/50</div>
       <div *ngIf="isInvalid('email')" class="error">Enter a valid email address</div>
     </div>
 
     <!-- Mobile -->
     <div class="input-wrapper">
-      <input type="text" formControlName="mobileNumber"
-        [placeholder]="isInvalid('mobileNumber') ? '' : 'Your Mobile Number'" (input)="onInput('mobileNumber')" />
+      <input type="text" formControlName="mobileNumber" [placeholder]="isInvalid('mobileNumber') ? '' : 'Your Mobile Number'" (input)="onInput('mobileNumber')" />
       <div class="char-count">{{ mobileNumberLength }}/10</div>
       <div *ngIf="isInvalid('mobileNumber')" class="error">Enter a valid 10-digit mobile number</div>
     </div>
 
     <!-- Subject -->
     <div class="input-wrapper">
-      <input type="text" formControlName="subject" [placeholder]="isInvalid('subject') ? '' : 'Subject'"
-        (input)="onInput('subject')" />
+      <input type="text" formControlName="subject" [placeholder]="isInvalid('subject') ? '' : 'Subject'" (input)="onInput('subject')" />
       <div class="char-count">{{ subjectLength }}/100</div>
       <div *ngIf="isInvalid('subject')" class="error">Subject is required and must not exceed 100 characters</div>
     </div>
 
     <!-- Message -->
     <div class="textarea-wrapper">
-      <textarea formControlName="message" [placeholder]="isInvalid('message') ? '' : 'Your Message'"
-        (input)="onInput('message')"></textarea>
+      <textarea formControlName="message" [placeholder]="isInvalid('message') ? '' : 'Your Message'" (input)="onInput('message')"></textarea>
       <div class="char-count">{{ messageLength }}/500</div>
-      <div *ngIf="isInvalid('message')" class="error">Message is required and must be between 10 and 500 characters
-      </div>
+      <div *ngIf="isInvalid('message')" class="error">Message is required and must be between 10 and 500 characters</div>
     </div>
 
     <!-- Submit -->

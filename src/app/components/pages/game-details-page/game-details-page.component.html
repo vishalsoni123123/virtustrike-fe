@@ -13,7 +13,8 @@
 
       <!-- Slides -->
       <div class="carousel-inner">
-        <div *ngFor="let media of mediaSlides; let i = index" class="carousel-item" [class.active]="i === 0">
+        <div *ngFor="let media of mediaSlides; let i = index" class="carousel-item" [class.active]="i === 0"
+          [attr.data-bs-interval]="media.toLowerCase().endsWith('.mp4') ? 9999999 : 5000">
 
           <!-- Image Slide -->
           <ng-container *ngIf="!media.toLowerCase().endsWith('.mp4'); else videoBlock">
@@ -32,24 +33,22 @@
       </div>
 
       <!-- Controls -->
-      <button class="carousel-control-prev" type="button" data-bs-target="#gameCarousel" data-bs-slide="prev">
+      <!-- <button class="carousel-control-prev" type="button" data-bs-target="#gameCarousel" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
       </button>
       <button class="carousel-control-next" type="button" data-bs-target="#gameCarousel" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
-      </button>
+      </button> -->
     </div>
   </div>
 
   <!-- Bottom Content -->
-  <div class="bottom-wrapper d-flex flex-wrap mt-4 gap-4 justify-content-between">
-
+  <div class="bottom-wrapper">
     <!-- Left Game Info -->
-    <div class="info-container flex-grow-1">
+    <div class="info-container">
       <h2 class="title">{{ game.name }}</h2>
-
       <div class="details">
         <label><strong>Description:</strong></label>
         <p class="description">{{ game.description }}</p>
@@ -57,12 +56,12 @@
         <label><strong>Story:</strong></label>
         <p class="story">{{ game.story }}</p>
 
-        <div class="players mt-2">
+        <div class="players">
           <label><strong>Players:</strong></label>
           <span>{{ game.minPlayers }} - {{ game.maxPlayers }}</span>
         </div>
 
-        <div class="price mt-2">
+        <div class="price">
           ₹{{ game.pricePerHour || game.pricePerPlayer }} /
           {{ game.pricePerPlayer ? 'player' : 'hour' }}
         </div>
@@ -70,7 +69,7 @@
     </div>
 
     <!-- Right Booking Box -->
-    <div class="booking-box p-4 shadow rounded" style="max-width: 400px;">
+    <div class="booking-box">
       <div>
         <h3 class="card-title">Ready to Play?</h3>
         <p class="card-text">
@@ -81,7 +80,7 @@
       </div>
 
       <!-- Book Now -->
-      <button class="btn btn-primary w-100" (click)="handleBooking()">Book This Game</button>
+      <button class="book-btn" (click)="handleBooking()">Book This Game</button>
     </div>
   </div>
 
