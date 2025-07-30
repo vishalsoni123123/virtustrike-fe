@@ -132,8 +132,6 @@
     padding: 0;
     margin-top: 1rem;
     list-style: none;
-
-    // ✅ Always left aligned
     justify-content: flex-start;
 
     li {
@@ -169,12 +167,12 @@
 
     @media (max-width: 768px) {
       flex-wrap: wrap;
-      justify-content: flex-start; // ✅ no centering
+      justify-content: flex-start; 
     }
 
     @media (max-width: 480px) {
       flex-wrap: wrap;
-      justify-content: flex-start; // ✅ no centering
+      justify-content: flex-start; 
     }
   }
 

@@ -12,6 +12,7 @@ export class ForgotPasswordPageComponent {
   forgotPasswordForm: FormGroup;
   successMessage = '';
   errorMessage = '';
+  showPassword = false;
 
   constructor(
     private fb: FormBuilder,
@@ -32,6 +33,10 @@ export class ForgotPasswordPageComponent {
     return this.forgotPasswordForm.get('newPassword')!;
   }
 
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
   onSubmit() {
     if (this.forgotPasswordForm.valid) {
       const requestData = this.forgotPasswordForm.value;
@@ -45,7 +50,7 @@ export class ForgotPasswordPageComponent {
           localStorage.setItem('resetNewPassword', requestData.newPassword);
 
           setTimeout(() => {
-            this.router.navigate(['/verify-otp']);
+            this.router.navigate(['/verify-reset-otp']);
           }, 1000);
         },
         error: (err) => {

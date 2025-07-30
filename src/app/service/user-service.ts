@@ -64,8 +64,12 @@ export class UserService {
   }
 
   // Verify OTP and Reset Password
-  verifyOtpAndResetPassword(otp: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/otp/forgot-password/verify?otp=${otp}`, {});
+  verifyOtpAndResetPassword(data: {
+    otp: string,
+    mobileNumber: string,
+    password: string
+  }): Observable<any> {
+    return this.http.post(`${this.baseUrl}/otp/forgot-password/verify`, data);
   }
 
   // -------------------- AUTH UTILITY --------------------
