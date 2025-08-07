@@ -130,10 +130,6 @@
 
         .menu-label {
           display: inline-block;
-
-          @media (max-width: 1024px) {
-            display: none;
-          }
         }
       }
 

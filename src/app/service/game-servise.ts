@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UrlService } from './url-service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -27,7 +28,7 @@ export class GameService {
         return this.http.get(`${this.baseUrl}/FindAllGames`, { params });
     }
 
-    // GET ALL GAMES USER (with pagination)
+    // GET ALL GAMES FOR USERS (with pagination)
     getAllGamesUser(page: number = 0, size: number = 10): Observable<any> {
         const params = new HttpParams()
             .set('page', page)
@@ -35,33 +36,29 @@ export class GameService {
         return this.http.get(`${this.baseUrl}/FindAllGamesUser`, { params });
     }
 
-    // GET FULL IMAGE URL (No double slashes)
-    getImageUrl(filename: string): string {
-        const base = this.urlService.getBaseUrl().replace(/\/+$/, '');
-        const file = filename.replace(/^\/+/, '');
-        return `${base}/${file}`;
-    }
-
-    // GET FULL VIDEO URL (similar to getImageUrl)
-    getVideoUrl(filename: string): string {
-        const base = this.urlService.getBaseUrl().replace(/\/+$/, '');
-        const file = filename.replace(/^\/+/, '');
-        return `${base}/${file}`;
-    }
-
     // GET GAME BY ID
     getGameById(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/FindById/${id}`);
+        return this.http.get(`${this.baseUrl}/FindById/${id}`);
     }
 
-    // UPDATE GAME DETAILS
-    updateGame(formData: FormData): Observable<any> {
-    const token = localStorage.getItem('token'); // or however you store it
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    // UPDATE GAME WITH MEDIA
+    updateGameWithMedia(formData: FormData): Observable<any> {
+        const token = localStorage.getItem('token') || '';
+        const headers = new HttpHeaders()
+            .set('Authorization', `Bearer ${token}`);
 
-    return this.http.put(`${this.baseUrl}/update`, formData, { headers });
-}
+        return this.http.put(`${this.baseUrl}/updateWithMedia`, formData, { headers });
+    }
 
+    // S3 IMAGE URL
+    getImageUrl(fileName: string): string {
+        return `${environment.s3BaseUrl}/GameImages/${fileName}`;
+    }
+
+    // S3 VIDEO URL
+    getVideoUrl(fileName: string): string {
+        return `${environment.s3BaseUrl}/GameVideos/${fileName}`;
+    }
 
     // UPDATE GAME STATUS
     updateGameStatus(id: number, status: string): Observable<any> {

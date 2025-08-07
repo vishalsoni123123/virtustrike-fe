@@ -10,6 +10,7 @@ import { BookingDetailsComponent } from './page/booking-details/booking-details.
 import { BookingDetailViewComponent } from './page/booking-detail-view/booking-detail-view.component';
 import { AnalyticsComponent } from './page/analytics/analytics.component';
 import { CalendarComponent } from './page/calendar/calendar.component';
+import { CashBookingComponent } from './page/cash-booking/cash-booking.component';
 
 
 // Admin-Routing
@@ -23,6 +24,7 @@ const routes: Routes = [
       { path: 'booking-details/:id', component: BookingDetailViewComponent },
       { path: 'customers', component: CustomersComponent },
       { path: 'games/add', component: AddGameComponent },
+      { path: 'games/booking', component: CashBookingComponent},
       { path: 'games/list', component: GameListComponent },
       { path: 'enquiry/list', component: EnquiryComponent },
       { path: 'analytics', component: AnalyticsComponent },

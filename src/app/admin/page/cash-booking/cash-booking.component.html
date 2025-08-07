@@ -1,0 +1,192 @@
+<div class="cash-booking-container">
+
+  <!-- Success and Error Messages -->
+  <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+  <!-- Add Booking Form -->
+  <div *ngIf="showForm" class="booking-form">
+    <h3>Add Booking</h3>
+    <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+
+      <!-- Full Name -->
+      <div class="form-group">
+        <input formControlName="fullName" placeholder="Full Name" type="text" />
+        <small *ngIf="bookingForm.get('fullName')?.touched && bookingForm.get('fullName')?.invalid">
+          Full Name is required (min 3 characters).
+        </small>
+      </div>
+
+      <!-- Mobile Number -->
+      <div class="form-group">
+        <input formControlName="mobileNumber" placeholder="Mobile Number" type="text" maxlength="10" />
+        <small *ngIf="bookingForm.get('mobileNumber')?.touched && bookingForm.get('mobileNumber')?.invalid">
+          Enter a valid 10-digit mobile number.
+        </small>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <input formControlName="email" placeholder="Email" type="email" />
+        <small *ngIf="bookingForm.get('email')?.touched && bookingForm.get('email')?.invalid">
+          Enter a valid email.
+        </small>
+      </div>
+
+      <!-- Game Name -->
+      <div class="form-group">
+        <input formControlName="gameName" placeholder="Game Name" type="text" />
+        <small *ngIf="bookingForm.get('gameName')?.touched && bookingForm.get('gameName')?.invalid">
+          Game Name is required.
+        </small>
+      </div>
+
+      <!-- Players -->
+      <div class="form-group">
+        <input formControlName="players" placeholder="Players" type="number" />
+        <small *ngIf="bookingForm.get('players')?.touched && bookingForm.get('players')?.invalid">
+          Players must be at least 1.
+        </small>
+      </div>
+
+      <!-- Price -->
+      <div class="form-group">
+        <input formControlName="price" placeholder="Price" type="number" />
+        <small *ngIf="bookingForm.get('price')?.touched && bookingForm.get('price')?.invalid">
+          Price must be greater than 0.
+        </small>
+      </div>
+
+      <!-- Slot Timing -->
+      <div class="form-group">
+        <input formControlName="slotTiming" placeholder="Slot Timing (e.g. 2:00 PM - 4:00 PM)" type="text" />
+        <small *ngIf="bookingForm.get('slotTiming')?.touched && bookingForm.get('slotTiming')?.invalid">
+          Slot Timing is required.
+        </small>
+      </div>
+
+      <!-- Payment Mode -->
+      <div class="form-group">
+        <select formControlName="paymentMode">
+          <option value="">Select Payment Mode</option>
+          <option value="CASH">Cash</option>
+          <option value="ONLINE">Online</option>
+        </select>
+        <small *ngIf="bookingForm.get('paymentMode')?.touched && bookingForm.get('paymentMode')?.invalid">
+          Payment Mode is required.
+        </small>
+      </div>
+
+      <!-- Buttons -->
+      <div class="form-actions">
+        <button type="submit" class="save-btn" [disabled]="bookingForm.invalid">Save</button>
+        <button type="button" class="cancel-btn" (click)="closeForm()">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Booking List -->
+  <div *ngIf="!showForm && !selectedBooking" class="booking-list">
+    <div class="booking-header">
+      <h3>Game Booking</h3>
+      <button class="add-btn" (click)="openForm()">+ Add Booking</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>DATE</th>
+          <th>FULL NAME</th>
+          <th>GAME</th>
+          <th>PLAYERS</th>
+          <th>PRICE</th>
+          <th>PAYMENT STATUS</th>
+          <th>ACTION</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let booking of paginatedBookings; index as i">
+          <td>{{ i + 1 + page * pageSize }}</td>
+          <td>{{ booking.createdAt| date: 'dd/MM/yyyy'}}</td>
+          <td>{{ booking.fullName }}</td>
+          <td>{{ booking.gameName }}</td>
+          <td>{{ booking.players }}</td>
+          <td>{{ booking.price }}</td>
+          <td>{{ booking.paymentMode }}</td>
+          <td>
+            <button (click)="getBookingById(booking.id)">View</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="pagination" *ngIf="totalPages > 1">
+      <button (click)="previousPage()" [disabled]="page === 0">Previous</button>
+
+      <button *ngFor="let p of [].constructor(totalPages); let i = index" (click)="goToPage(i)"
+        [class.active]="page === i">
+        {{ i + 1 }}
+      </button>
+
+      <button (click)="nextPage()" [disabled]="page + 1 >= totalPages">Next</button>
+    </div>
+  </div>
+</div>
+
+<!-- Booking Details -->
+<div *ngIf="selectedBooking" class="booking-details-view">
+  <h2>Booking Details</h2>
+
+  <div class="details-grid">
+    <div class="row">
+      <div class="field">
+        <label>Full Name</label>
+        <div class="readonly-box">{{ selectedBooking.fullName }}</div>
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <div class="readonly-box">{{ selectedBooking.email }}</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>Mobile</label>
+        <div class="readonly-box">{{ selectedBooking.mobileNumber }}</div>
+      </div>
+      <div class="field">
+        <label>Game</label>
+        <div class="readonly-box">{{ selectedBooking.gameName }}</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>Players</label>
+        <div class="readonly-box">{{ selectedBooking.players }}</div>
+      </div>
+      <div class="field">
+        <label>Slot Timing</label>
+        <div class="readonly-box">{{ selectedBooking.slotTiming }}</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>Price</label>
+        <div class="readonly-box">{{ selectedBooking.price }}</div>
+      </div>
+      <div class="field">
+        <label>Payment Mode</label>
+        <div class="readonly-box">{{ selectedBooking.paymentMode }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Btn -->
+  <div class="action-buttons">
+    <button class="close-btn" (click)="clearSelectedBooking()">Back to List</button>
+  </div>
+</div>

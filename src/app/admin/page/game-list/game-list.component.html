@@ -1,6 +1,12 @@
 <h2 class="heading">Game List</h2>
 
 <div class="game-container">
+
+  <div *ngIf="message"
+    [ngClass]="{'success-message': messageType === 'success', 'error-message': messageType === 'error'}">
+    {{ message }}
+  </div>
+
   <!-- List View -->
   <ng-container *ngIf="!selectedGame">
     <div *ngIf="loading" class="loading">Loading games...</div>
@@ -68,7 +74,8 @@
           <img *ngIf="selectedGame.imageUrl" [src]="selectedGame.imageUrl" alt="Game Image" />
         </div>
         <div class="media-box">
-          <video *ngIf="selectedGame.videoUrl" [src]="selectedGame.videoUrl" autoplay loop muted playsinline controls></video>
+          <video *ngIf="selectedGame.videoUrl" [src]="selectedGame.videoUrl" autoplay loop muted playsinline
+            controls></video>
         </div>
       </div>
 

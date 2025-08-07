@@ -15,6 +15,9 @@ export class GameListComponent implements OnInit {
   selectedGame: any = null;
   previewUrls: string[] = [];
 
+  message: string = '';
+  messageType: 'success' | 'error' | '' = '';
+
   constructor(public gameService: GameService) {}
 
   ngOnInit(): void {
@@ -28,14 +31,19 @@ export class GameListComponent implements OnInit {
         const gameList = res?.data || [];
         this.games = gameList.map((game: any) => ({
           ...game,
-          imageUrl: game.image_url ? this.gameService.getImageUrl(game.image_url) : null,
-          videoUrl: game.video_url ? this.gameService.getVideoUrl(game.video_url) : null
+          imageUrl: game.image_url?.startsWith('http')
+            ? game.image_url
+            : this.gameService.getImageUrl(game.image_url),
+          videoUrl: game.video_url?.startsWith('http')
+            ? game.video_url
+            : this.gameService.getVideoUrl(game.video_url)
         }));
+
         this.totalRecords = res?.totalRecords || 0;
         this.loading = false;
       },
       error: (err) => {
-        console.error('Error fetching games:', err);
+        // console.error('Error fetching games:', err);
         this.loading = false;
       }
     });
@@ -54,7 +62,7 @@ export class GameListComponent implements OnInit {
 
   viewGame(game: any): void {
     this.selectedGame = game;
-    this.previewUrls = []; 
+    this.previewUrls = [];
   }
 
   backToList(): void {
@@ -65,13 +73,22 @@ export class GameListComponent implements OnInit {
   updateGameStatus(game: any): void {
     this.gameService.updateGameStatus(game.id, game.status).subscribe({
       next: () => {
-        alert(`Game ID ${game.id} status updated to ${game.status}`);
+        this.message = `Game ID ${game.id} status updated to ${game.status}.`;
+        this.messageType = 'success';
+        setTimeout(() => this.clearMessage(), 3000);
       },
       error: (err) => {
-        console.error('Failed to update game status:', err);
-        alert('Error updating game status.');
+        // console.error('Failed to update game status:', err);
+        this.message = 'Error updating game status.';
+        this.messageType = 'error';
+        setTimeout(() => this.clearMessage(), 3000);
       }
     });
+  }
+
+  clearMessage(): void {
+    this.message = '';
+    this.messageType = '';
   }
 
   onImageSelected(event: Event): void {
@@ -102,13 +119,13 @@ export class GameListComponent implements OnInit {
     }
   }
 
-  forceMute(event: Event) {
-  const videoElement = event.target as HTMLVideoElement;
-  if (videoElement) {
-    videoElement.muted = true;
-    videoElement.volume = 0;
+  forceMute(event: Event): void {
+    const videoElement = event.target as HTMLVideoElement;
+    if (videoElement) {
+      videoElement.muted = true;
+      videoElement.volume = 0;
+    }
   }
-}
 
   isImage(url: string): boolean {
     return url.match(/\.(jpeg|jpg|gif|png|webp)$/i) != null;
@@ -119,7 +136,8 @@ export class GameListComponent implements OnInit {
   }
 
   updateGame(): void {
-    // Implement your game update logic here
-    alert('Game update functionality not implemented yet.');
+    this.message = 'Game update functionality not implemented yet.';
+    this.messageType = 'error';
+    setTimeout(() => this.clearMessage(), 3000);
   }
 }

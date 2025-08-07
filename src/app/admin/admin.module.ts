@@ -6,7 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CustomersComponent } from './page/customers/customers.component';
 import { AddGameComponent } from './page/add-game/add-game.component';
 import { GameListComponent } from './page/game-list/game-list.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,6 +19,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { AnalyticsComponent } from './page/analytics/analytics.component';
 import { CalendarComponent } from './page/calendar/calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { CashBookingComponent } from './page/cash-booking/cash-booking.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     BookingDetailViewComponent,
     CustomersComponent,
     AddGameComponent,
+    CashBookingComponent,
     GameListComponent,
     EnquiryComponent,
     AnalyticsComponent,
@@ -42,6 +44,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     AdminRoutingModule,
     NgxPaginationModule,
     NgChartsModule,
+    ReactiveFormsModule,
     FullCalendarModule  
   ]
 })

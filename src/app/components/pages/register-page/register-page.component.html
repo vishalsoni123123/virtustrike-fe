@@ -12,6 +12,7 @@
 
 <!-- Register Form Container -->
 <div class="register-container">
+
   <h3 class="text-center">Get Started</h3>
   <h2 class="text-center">Create Your <span style="color: rgb(255, 0, 255);">Account</span></h2>
 
@@ -108,8 +109,38 @@
         <a routerLink="/sign-in" style="color: rgb(255, 0, 255); text-decoration: underline;">Sign In here</a>
       </p>
     </div>
-
   </form>
+
+  <!-- Register Success Modal -->
+  <div class="modal fade" #registerSuccessModal tabindex="-1" aria-labelledby="registerSuccessLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-center">
+        <div class="modal-header border-0">
+          <h5 class="modal-title w-100 text-success" id="registerSuccessLabel">
+            🎉 Registration Successful!
+          </h5>
+        </div>
+        <div class="modal-body">
+          Congratulations! Your account has been successfully created. 🎊<br>
+          Redirecting to sign-in...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Register Error Modal -->
+  <div class="modal fade" #registerErrorModal tabindex="-1" aria-labelledby="registerErrorLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-center">
+        <div class="modal-header border-0">
+          <h5 class="modal-title w-100 text-danger" id="registerErrorLabel">❌ Registration Failed</h5>
+        </div>
+        <div class="modal-body">
+          Something went wrong. Please try again later.
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Register Success Modal -->

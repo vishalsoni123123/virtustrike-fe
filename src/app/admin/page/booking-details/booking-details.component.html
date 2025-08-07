@@ -10,10 +10,9 @@
         <th>DATE</th>
         <th>FULL NAME</th>
         <th>PLAYERS</th>
-        <th>CENTER</th>
         <th>TOTAL PRICE</th>
         <th>PAYMENT STATUS</th>
-        <th>Action</th>
+        <th>ACTION</th>
       </tr>
     </thead>
     <tbody>
@@ -22,7 +21,6 @@
         <td>{{ booking.bookingDate | date: 'dd/MM/yyyy' }}</td>
         <td>{{ booking.fullName }}</td>
         <td>{{ booking.player }} Player</td>
-        <td>{{ booking.centerName }}</td>
         <td> &#8377; {{ booking.totalPrice }}</td>
         <td>
           <span class="status" [ngClass]="(booking.paymentStatus || 'na').toLowerCase()">

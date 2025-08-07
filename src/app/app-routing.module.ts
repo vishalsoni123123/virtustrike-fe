@@ -17,34 +17,37 @@ import { BookingPageComponent } from './components/pages/booking-page/booking-pa
 import { OtpPageComponent } from './components/pages/otp-page/otp-page.component';
 import { PaymentPageComponent } from './components/pages/payment-page/payment-page.component';
 import { VerifyResetOtpComponent } from './components/pages/verify-reset-otp-page/verify-reset-otp.component';
+import { AdminGuard } from './interceptors/auth.guard';
 
 const routes: Routes = [
-    { path: '', component: HomeComponent },
-    { path: 'about', component: AboutPageComponent },
-    { path: 'games', component: GamesComponent },
-    { path: 'game/:id', component: GameDetailsPageComponent },
-    { path: 'game-news', component: GameNewsPageComponent },
-    { path: 'booking', component: BookingPageComponent },
-    { path: 'tournament', component: TournamentComponent },
-    { path: 'contact', component: ContactPageComponent },
-    { path: 'sign-in', component: SignInPageComponent },
-    { path: 'verify-otp', component: OtpPageComponent },
-    { path: 'verify-reset-otp', component: VerifyResetOtpComponent },
-    { path: 'forgot-password', component: ForgotPasswordPageComponent },
-    { path: 'register', component: RegisterPageComponent },
-    { path: 'my-profile', component: MyProfilePageComponent },
-    { path: 'terms-of-service', component: TermsOfServicePageComponent },
-    { path: 'privacy-policy', component: PrivacyPolicyPageComponent },
-    { path: 'payment', component: PaymentPageComponent },
+  { path: '', component: HomeComponent },
+  { path: 'about', component: AboutPageComponent },
+  { path: 'games', component: GamesComponent },
+  { path: 'game/:id', component: GameDetailsPageComponent },
+  { path: 'game-news', component: GameNewsPageComponent },
+  { path: 'booking', component: BookingPageComponent },
+  { path: 'tournament', component: TournamentComponent },
+  { path: 'contact', component: ContactPageComponent },
+  { path: 'sign-in', component: SignInPageComponent },
+  { path: 'verify-otp', component: OtpPageComponent },
+  { path: 'verify-reset-otp', component: VerifyResetOtpComponent },
+  { path: 'forgot-password', component: ForgotPasswordPageComponent },
+  { path: 'register', component: RegisterPageComponent },
+  { path: 'my-profile', component: MyProfilePageComponent },
+  { path: 'terms-of-service', component: TermsOfServicePageComponent },
+  { path: 'privacy-policy', component: PrivacyPolicyPageComponent },
+  { path: 'payment', component: PaymentPageComponent },
 
-    // Admin Module
-    { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) }
-
-];
+  // Admin Module
+  {
+    path: 'admin',
+    canActivate: [AdminGuard],
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+  }];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {
 }

@@ -11,11 +11,28 @@ export class CalendarComponent implements OnInit {
   events: { [key: string]: string } = {};
   showForm: boolean = false;
 
+  successMessage: string = '';
+  errorMessage: string = '';
+  isEditing: boolean = false;
+
   ngOnInit(): void {
     const saved = localStorage.getItem('events');
     if (saved) {
       this.events = JSON.parse(saved);
     }
+  }
+
+  showMessage(message: string, type: 'success' | 'error'): void {
+    if (type === 'success') {
+      this.successMessage = message;
+    } else {
+      this.errorMessage = message;
+    }
+
+    setTimeout(() => {
+      this.successMessage = '';
+      this.errorMessage = '';
+    }, 3000);
   }
 
   saveEvent(): void {
@@ -25,10 +42,24 @@ export class CalendarComponent implements OnInit {
       this.eventText = '';
       this.selectedDate = '';
       this.showForm = false;
-      alert('Event saved!');
+      this.isEditing = false;
+      this.showMessage('Event saved successfully!', 'success');
     } else {
-      alert('Please select a date and enter event text.');
+      this.showMessage('Please select a date and enter event details.', 'error');
     }
+  }
+
+  editEvent(date: string): void {
+    this.selectedDate = date;
+    this.eventText = this.events[date];
+    this.showForm = true;
+    this.isEditing = true;
+  }
+
+  deleteEvent(date: string): void {
+    delete this.events[date];
+    localStorage.setItem('events', JSON.stringify(this.events));
+    this.showMessage('Event deleted successfully.', 'success');
   }
 
   get allEventDates(): string[] {
