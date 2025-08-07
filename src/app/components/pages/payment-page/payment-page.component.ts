@@ -82,7 +82,7 @@ export class PaymentPageComponent implements OnInit {
                 }, 3000);
               },
               () => {
-                this.showStatus('⚠️ Payment succeeded but saving failed!', 'error');
+                this.showStatus('Payment succeeded but saving failed!', 'error');
               }
             );
           },

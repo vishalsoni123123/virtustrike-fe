@@ -47,7 +47,7 @@ export class BookingDetailViewComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.error('Error loading booking:', err);
+        // console.error('Error loading booking:', err);
         this.errorMessage = 'Booking not found or server error.';
       }
     });

@@ -153,4 +153,68 @@ $input-border: #ced4da;
       }
     }
   }
+
+  .modal-content {
+    border-radius: 16px;
+    padding: 20px;
+    font-family: 'Segoe UI', sans-serif;
+    animation: fadeIn 0.3s ease-in-out;
+
+    .modal-header {
+      border-bottom: none;
+      justify-content: center;
+    }
+
+    .modal-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .modal-body {
+      font-size: 1rem;
+      color: #555;
+      padding: 10px 20px;
+    }
+  }
+
+  // Success Modal Styling
+  .modal-content.text-success {
+    border: 2px solid #28a745;
+    background: #e6ffed;
+
+    .modal-title {
+      color: #28a745;
+    }
+
+    .modal-body {
+      color: #155724;
+    }
+  }
+
+  // Error Modal Styling
+  .modal-content.text-danger {
+    border: 2px solid #dc3545;
+    background: #ffe6e6;
+
+    .modal-title {
+      color: #dc3545;
+    }
+
+    .modal-body {
+      color: #721c24;
+    }
+  }
+
+  // Animation
+  @keyframes fadeIn {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
 }

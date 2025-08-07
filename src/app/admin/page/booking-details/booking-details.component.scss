@@ -145,16 +145,11 @@
 
     th:nth-child(6),
     td:nth-child(6) {
-      width: 7%;
+      width: 10%;
     }
 
     th:nth-child(7),
     td:nth-child(7) {
-      width: 10%;
-    }
-
-    th:nth-child(8),
-    td:nth-child(8) {
       width: 10%;
     }
   }
@@ -188,28 +183,6 @@
 
     &:hover:not(:disabled):not(.active) {
       background-color: #334155;
-    }
-  }
-}
-
-// Responsive Design
-@media (max-width: 768px) {
-  .booking-table-container {
-    padding: 1rem;
-
-    .booking-table {
-      font-size: 0.85rem;
-
-      thead th,
-      tbody td {
-        padding: 0.6rem 0.8rem;
-      }
-    }
-
-    .pagination {
-      flex-wrap: wrap;
-      font-size: 0.85rem;
-      gap: 0.5rem;
     }
   }
 }

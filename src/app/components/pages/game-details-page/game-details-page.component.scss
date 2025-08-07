@@ -53,7 +53,6 @@
         color: #ff00ff;
         font-weight: bold;
         margin-bottom: 1.5rem;
-        /* margin-left removed */
       }
 
       .details {
@@ -61,12 +60,10 @@
           font-size: 1.2rem;
           color: #4a90e2;
           font-weight: 600;
-          /* margin-left removed */
         }
 
         .description,
         .story {
-          /* margin-left removed */
           font-size: 1.1rem;
           color: #ddd;
           margin-bottom: 1rem;
@@ -77,10 +74,6 @@
           margin-top: 1rem;
           font-size: 1.3rem;
           color: #00ffea;
-        }
-
-        .price {
-          /* margin-left removed */
         }
       }
     }
@@ -93,8 +86,6 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       display: flex;
       flex-direction: column;
-      /* margin-right removed */
-      /* if you want spacing, use padding inside or gap in flex container */
 
       .card-title {
         font-size: 1.8rem;
@@ -138,11 +129,11 @@
 
     .bottom-wrapper {
       flex-direction: column;
+      gap: 2rem;
 
       .info-container,
       .booking-box {
         flex: 1 1 100%;
-        margin-right: 0; /* remove margin-right on smaller screens */
       }
     }
   }
@@ -157,7 +148,6 @@
 
     .title {
       font-size: 2rem;
-      margin-left: 0; /* reset margin for smaller screens */
     }
 
     .card-title {
@@ -172,7 +162,173 @@
     .description,
     .story,
     .price {
-      margin-left: 0; /* reset margin-left on smaller screens */
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+
+    .media-carousel {
+      .carousel-media {
+        width: 100%;
+        max-height: 180px;
+      }
+    }
+  }
+
+   .custom-login-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.4s ease-in-out;
+
+  .modal-dialog {
+    max-width: 450px;
+    width: 90%;
+  }
+
+  .modal-content {
+    background: linear-gradient(to right, #1d0f3a, #2d1450);
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    padding: 1.5rem;
+    color: #fff;
+    text-align: center;
+    position: relative;
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: none;
+    padding-bottom: 0;
+    position: relative;
+
+    .modal-title {
+      font-size: 1.5rem;
+      color: #ffdc00;
+      text-align: center;
+    }
+
+    .btn-close {
+      background-color: #fff;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      opacity: 1;
+    }
+  }
+ .modal-body {
+    margin: 1rem 0;
+    font-size: 1.1rem;
+    color: #ccc;
+    strong {
+      color: #00e6ff;
+    }
+  }
+
+  .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 0;
+
+    .btn {
+      flex: 1;
+          font-weight: bold;
+      border-radius: 8px;
+      transition: transform 0.2s ease;
+       background: linear-gradient(to right, #ff6ec4, #7873f5);
+            border-radius: 15px 10px 15px 10px;
+            color: white;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+
+            &:hover {
+                background: linear-gradient(to right, #ff6ec4, #7873f5);
+                transform: scale(1.03);
+            }
+  
+    }
+
+    .cancel-btn {
+      background: #444;
+      color: #fff;
+
+      &:hover {
+        background: #666;
+        transform: scale(1.03);
+      }
+    }
+
+    .login-btn {
+      background: linear-gradient(to right, #de28ff, #3376ff);
+      color: white;
+
+      &:hover {
+        background: linear-gradient(to right, #a83eff, #00a4ff);
+        transform: scale(1.03);
+      }
+    }
+  }
+}
+
+  @media (max-width: 1024px) {
+    padding: 1.5rem;
+
+    .media-carousel {
+      .carousel-media {
+        width: 80%;
+        max-height: 280px;
+      }
+    }
+
+    .bottom-wrapper {
+      flex-direction: column;
+      gap: 2rem;
+
+      .info-container,
+      .booking-box {
+        flex: 1 1 100%;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .media-carousel {
+      .carousel-media {
+        width: 90%;
+        max-height: 240px;
+      }
+    }
+
+    .title {
+      font-size: 2rem;
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+    }
+
+    .card-text {
+      font-size: 1rem;
+    }
+
+    .details label,
+    .description,
+    .story,
+    .price {
+      font-size: 1rem;
     }
   }
 

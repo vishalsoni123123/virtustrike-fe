@@ -1,15 +1,16 @@
-<div class="profile-container" *ngIf="user">
-    <h2>My Profile</h2>
+<div class="profile-container" *ngIf="user && showProfile">
+    <h2>My Profile 
+        <button (click)="closeProfile()" class="close-btn">×</button>
+    </h2>
     <div class="profile-card">
         <div class="profile-details">
             <p><strong>Full Name:</strong> {{ user.fullName }}</p>
             <p><strong>Email:</strong> {{ user.email }}</p>
             <p><strong>Mobile Number:</strong> {{ user.mobileNumber }}</p>
-            <p><strong>Role:</strong> {{ user.role }}</p>
         </div>
     </div>
 </div>
 
-<div *ngIf="!user" class="no-user">
-    <p>User data not available. Please log in.</p>
+<div *ngIf="(!user || !showProfile)" class="no-user">
+    <p>User data not available or profile closed. Please log in.</p>
 </div>

@@ -19,6 +19,9 @@
                 <li routerLink="/admin/games/list" routerLinkActive="active">
                     <i class="fas fa-list"></i> <span>GAME LIST</span>
                 </li>
+                <li routerLink="/admin/games/booking" routerLinkActive="active">
+                    <i class="fas fa-calendar-check"></i> <span>GAME BOOKING</span>
+                </li>
                 <li routerLink="/admin/enquiry/list" routerLinkActive="active">
                     <i class="fas fa-box"></i> <span>ENQUIRY LIST</span>
                 </li>
@@ -34,16 +37,13 @@
                 <li routerLink="/admin/calendar" routerLinkActive="active">
                     <i class="fas fa-calendar"></i> <span>CALENDAR</span>
                 </li>
-                <li routerLink="/admin/settings" routerLinkActive="active">
-                    <i class="fas fa-cogs"></i> <span>SETTINGS</span>
-                </li>
             </ul>
         </nav>
     </aside>
 
     <!-- Main Content Area -->
     <div class="content-area">
-        
+
         <!-- Header Toolbar -->
         <header class="toolbar" [class.scrolled]="isScrolled">
             <div class="toolbar-left">
@@ -58,8 +58,9 @@
 
             <!-- Toolbar Right Section -->
             <div class="toolbar-right">
-                <i class="fas fa-globe"></i>
-                <i class="fas fa-bell"></i>
+                <a href="https://www.virtustrike.com/" target="_blank">
+                    <i class="fas fa-globe"></i>
+                </a> <i class="fas fa-bell"></i>
                 <div class="profile-pic">
                     <img src="assets/images/web-logo/logo.png" alt="User" />
                 </div>

@@ -20,7 +20,7 @@
 
   p {
     font-size: 0.95rem;
-    color: rgb(151, 66, 255);
+    color: #d9b3ff; // improved contrast
     margin-bottom: 3rem;
   }
 
@@ -114,88 +114,63 @@
       }
 
       .slot-dropdown {
-  margin-top: 0.8rem;
-  position: relative;
+        margin-top: 0.8rem;
+        position: relative;
 
-  .dropdown-toggle {
-    padding: 0.5rem;
-    background-color: rgb(97, 85, 126);
-    border: 1px solid #ccc;
-    border-radius: 0.4rem;
-    cursor: pointer;
-    font-size: 0.9rem;
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+        .dropdown-toggle {
+          padding: 0.5rem;
+          background-color: rgb(97, 85, 126);
+          border: 1px solid #ccc;
+          border-radius: 0.4rem;
+          cursor: pointer;
+          font-size: 0.9rem;
+          color: #fff;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
 
-    .arrow {
-      margin-left: 0.5rem;
-      transition: transform 0.3s ease;
+          .arrow {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
 
-      &.open {
-        transform: rotate(180deg);
+            &.open {
+              transform: rotate(180deg);
+            }
+          }
+
+          &:hover {
+            border-color: #ff5722;
+          }
+        }
+
+        .dropdown-list {
+          position: absolute;
+          top: 110%;
+          left: 0;
+          right: 0;
+          background-color: rgb(78, 63, 109);
+          border: 1px solid #ccc;
+          border-radius: 0.4rem;
+          padding: 0.5rem;
+          max-height: 200px;
+          overflow-y: auto;
+          z-index: 10;
+
+          .slot-option {
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+            margin-bottom: 0.4rem;
+            color: #fff;
+            flex-wrap: nowrap;
+
+            input[type='checkbox'] {
+              margin-right: 0.5rem;
+              accent-color: #de28ff;
+            }
+          }
+        }
       }
-    }
-
-    &:hover {
-      border-color: #ff5722;
-    }
-  }
-
-  .dropdown-list {
-    position: absolute;
-    top: 110%;
-    left: 0;
-    right: 0;
-    background-color: rgb(78, 63, 109);
-    border: 1px solid #ccc;
-    border-radius: 0.4rem;
-    padding: 0.5rem;
-    max-height: 200px;
-    overflow-y: auto;
-    z-index: 10;
-
-    .slot-option {
-      display: flex;
-      align-items: center;
-      font-size: 0.85rem;
-      margin-bottom: 0.4rem;
-      color: #fff;
-
-      input[type='checkbox'] {
-        margin-right: 0.5rem;
-        accent-color: #de28ff;
-      }
-    }
-  }
-
-  .booking-message {
-  margin: 20px auto;
-  padding: 15px 20px;
-  border-radius: 10px;
-  width: fit-content;
-  color: #fff;
-  font-size: 1rem;
-  background: linear-gradient(to right, #00b09b, #96c93d); // green gradient
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  animation: fadeIn 0.4s ease-in-out;
-  text-align: center;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-
-  .error {
-    margin-top: 0.4rem;
-    color: #ff4d4d;
-    font-size: 0.8rem;
-  }
-}
-
 
       .error {
         margin-top: 0.4rem;
@@ -223,7 +198,59 @@
           cursor: not-allowed;
           box-shadow: none;
         }
+
+        &.loading {
+          opacity: 0.8;
+          cursor: wait;
+          position: relative;
+        }
+
+        &.loading::after {
+          content: '';
+          position: absolute;
+          right: 1rem;
+          top: 50%;
+          width: 1rem;
+          height: 1rem;
+          margin-top: -0.5rem;
+          border: 2px solid white;
+          border-top: 2px solid transparent;
+          border-radius: 50%;
+          animation: spin 0.7s linear infinite;
+        }
       }
+    }
+  }
+
+  .booking-message {
+    margin: 20px auto;
+    padding: 15px 20px;
+    border-radius: 10px;
+    width: fit-content;
+    max-width: 100%;
+    color: #fff;
+    font-size: 1rem;
+    background: linear-gradient(to right, #00b09b, #96c93d);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.4s ease-in-out;
+    text-align: center;
+    word-break: break-word;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
     }
   }
 
@@ -244,7 +271,7 @@
       .booking-form {
         .slot-dropdown {
           .dropdown-list {
-            position: static;
+            position: absolute; // ensure dropdown is overlayed
             max-height: 150px;
           }
         }

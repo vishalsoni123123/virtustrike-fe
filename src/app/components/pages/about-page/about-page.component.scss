@@ -28,7 +28,7 @@
   .btn {
     background: linear-gradient(to right, #DE28FF, #3376FF);
     padding: 0.5rem 1rem;
-    border-radius: 15px 0px 15px 0px;
+    border-radius: 15px 0 15px 0;
     color: white;
     font-weight: bold;
     text-transform: uppercase;
@@ -239,8 +239,7 @@
 .our-mission-section {
   background: url('/assets/images/about-img/mission-bg.jpg') no-repeat center center / cover;
   padding: 100px 20px;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin: 0 15px;
   border-radius: 10px;
   color: #ffffff;
   text-align: center;
@@ -263,16 +262,11 @@
     margin-bottom: 15px;
     font-weight: 700;
     letter-spacing: 2px;
-    position: relative;
     display: inline-block;
-
-    // 3D text shadow layers
     text-shadow:
       1px 1px 0 #4b1d99,
       2px 2px 0 #3c147a,
       3px 3px 0 #2d0f5b;
-
-    // Optional: glow effect
     filter: drop-shadow(0 0 8px rgba(162, 89, 255, 0.6));
   }
 

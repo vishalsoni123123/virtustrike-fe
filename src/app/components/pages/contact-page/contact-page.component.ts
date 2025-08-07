@@ -66,41 +66,41 @@ export class ContactPageComponent {
     control.setValue(value, { emitEvent: false });
   }
 
-  onSubmit(): void {
-    if (this.contactForm.invalid) {
-      this.contactForm.markAllAsTouched();
-      return;
-    }
-
-    this.isSubmitting = true;
-    this.submitSuccess = false;
-    this.submitError = '';
-
-    const formValue = this.contactForm.value;
-
-    // Send 'message' as 'description' to the backend
-    const contactData = {
-      ...formValue,
-      description: formValue.message
-    };
-    delete contactData.message;
-
-    this.contactService.addContact(contactData).subscribe({
-      next: () => {
-        this.isSubmitting = false;
-        this.submitSuccess = true;
-        this.showSuccessMessage = true;
-        this.contactForm.reset();
-        this.nameLength = this.emailLength = this.mobileNumberLength = this.subjectLength = this.messageLength = 0;
-      },
-      error: (err) => {
-        this.isSubmitting = false;
-        this.submitError = 'Failed to send message. Please try again.';
-        console.error('Error submitting contact form:', err);
-        alert(this.submitError);
-      }
-    });
+ onSubmit(): void {
+  if (this.contactForm.invalid) {
+    this.contactForm.markAllAsTouched();
+    return;
   }
+
+  this.isSubmitting = true;
+  this.submitSuccess = false;
+  this.submitError = '';
+  this.showSuccessMessage = false;
+
+  const formValue = this.contactForm.value;
+
+  // Send 'message' as 'description' to the backend
+  const contactData = {
+    ...formValue,
+    description: formValue.message
+  };
+  delete contactData.message;
+
+  this.contactService.addContact(contactData).subscribe({
+    next: () => {
+      this.isSubmitting = false;
+      this.submitSuccess = true;
+      this.showSuccessMessage = true;
+      this.contactForm.reset();
+      this.nameLength = this.emailLength = this.mobileNumberLength = this.subjectLength = this.messageLength = 0;
+    },
+    error: (err) => {
+      this.isSubmitting = false;
+      this.submitError = 'Something went wrong. Please try again later.';
+      console.error('Contact form submission error:', err);
+    }
+  });
+}
 
   closeSuccessMessage(): void {
     this.showSuccessMessage = false;

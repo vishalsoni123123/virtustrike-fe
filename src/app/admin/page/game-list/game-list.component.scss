@@ -185,14 +185,6 @@
         input {
           width: 100%;
         }
-
-        @media (max-width: 768px) {
-          flex-direction: column;
-
-          >div {
-            width: 100%;
-          }
-        }
       }
 
       // Hide spinner for number inputs (Chrome, Safari, Edge)
@@ -308,7 +300,7 @@
         }
 
         video.carousel-media {
-          pointer-events: none; 
+          pointer-events: none;
         }
       }
     }
@@ -331,7 +323,7 @@
         text-transform: uppercase;
 
         &.back-btn {
-          background: linear-gradient(to right, #ff6ec4, #7873f5); 
+          background: linear-gradient(to right, #ff6ec4, #7873f5);
           color: #fdf4ff;
           font-weight: 600;
           border: none;
@@ -343,7 +335,7 @@
           box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
 
           &:hover {
-            background: linear-gradient(to right, #f740a1, #5e59d5); 
+            background: linear-gradient(to right, #f740a1, #5e59d5);
             transform: scale(1.03);
           }
         }
@@ -361,27 +353,23 @@
         }
       }
     }
+  }
 
-    @media (max-width: 768px) {
-      .btn-group {
-        flex-direction: column;
-      }
+  .success-message {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    margin: 10px 0;
+    border-left: 5px solid #28a745;
+    border-radius: 4px;
+  }
 
-      .file-upload-row {
-        flex-direction: column;
-      }
-
-      .preview-row {
-        justify-content: center;
-      }
-
-      .media-row {
-        flex-direction: column;
-
-        .media-box {
-          max-width: 100%;
-        }
-      }
-    }
+  .error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    margin: 10px 0;
+    border-left: 5px solid #dc3545;
+    border-radius: 4px;
   }
 }

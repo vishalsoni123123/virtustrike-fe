@@ -15,6 +15,7 @@ export class RegisterPageComponent {
   passwordEntered: boolean = false;
 
   @ViewChild('registerSuccessModal') registerSuccessModal!: ElementRef;
+  @ViewChild('registerErrorModal') registerErrorModal!: ElementRef;
 
   constructor(
     private fb: FormBuilder,
@@ -54,7 +55,6 @@ export class RegisterPageComponent {
     if (this.registerForm.valid) {
       const formValue = this.registerForm.value;
 
-      // Map 'dob' to 'dateOfBirth' for backend
       const userPayload = {
         fullName: formValue.fullName,
         email: formValue.email,
@@ -66,8 +66,6 @@ export class RegisterPageComponent {
 
       this.userService.signup(userPayload).subscribe({
         next: (response) => {
-          console.log('Signup success:', response);
-
           const modal = new bootstrap.Modal(this.registerSuccessModal.nativeElement);
           modal.show();
 
@@ -80,9 +78,9 @@ export class RegisterPageComponent {
             this.router.navigate(['/sign-in']);
           }, 2000);
         },
-        error: (error) => {
-          console.error('Signup failed:', error);
-          alert('Signup failed. Please try again.');
+        error: () => {
+          const modal = new bootstrap.Modal(this.registerErrorModal.nativeElement);
+          modal.show();
         }
       });
     } else {

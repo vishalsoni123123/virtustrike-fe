@@ -6,46 +6,48 @@ import { Injectable } from '@angular/core';
 export class AuthService {
   constructor() {}
 
-  // ✅ Get JWT token from localStorage
+  // Get JWT token from localStorage
   getToken(): string | null {
     return localStorage.getItem('token');
   }
 
-  // ✅ Check if any user is logged in
+  // Check if any user is logged in
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    return !!this.getToken();
   }
 
-  // ✅ Get parsed user object from localStorage
+  // Get parsed user object from localStorage
   getUser(): any | null {
     try {
       const user = localStorage.getItem('user');
       return user ? JSON.parse(user) : null;
     } catch (error) {
-      console.error('Error parsing user from localStorage:', error);
+      // Optional: console.error('User parse error', error);
       return null;
     }
   }
 
-  // ✅ Get list of roles from the user object
-  getUserRole(): string[] {
+  // Get user role(s)
+  getUserRoles(): string[] {
     const user = this.getUser();
-    return user?.roleList || [];
+    // Support for both single role and array of roles
+    if (!user) return [];
+    if (Array.isArray(user.roleList)) return user.roleList;
+    if (typeof user.role === 'string') return [user.role];
+    return [];
   }
 
-  // ✅ Check if current user has Admin role
-   isAdmin(): boolean {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return user?.role === 'Admin';
+  // Check if user has Admin role
+  isAdmin(): boolean {
+    return this.getUserRoles().includes('Admin');
   }
 
-  // Check if current user is a regular User (and not Admin)
-isUser(): boolean {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return user?.role === 'User'; // ya 'Customer' as per backend
+  // Check if user has User or Customer role
+  isUser(): boolean {
+    return this.getUserRoles().includes('User') || this.getUserRoles().includes('Customer');
   }
 
-  // ✅ Clear localStorage on logout
+  // Clear session data
   logout(): void {
     localStorage.clear();
   }

@@ -70,7 +70,7 @@ import { VerifyResetOtpComponent } from './components/pages/verify-reset-otp-pag
 		PrivacyPolicyPageComponent,
 		MyProfilePageComponent,
 		PaymentPageComponent,
-		VerifyResetOtpComponent
+		VerifyResetOtpComponent,
 	],
 	imports: [
 		BrowserModule,

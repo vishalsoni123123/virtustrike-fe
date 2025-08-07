@@ -37,9 +37,19 @@
       background: linear-gradient(to right, #A83EFF, #00A4FF);
     }
 
+     @media (max-width: 768px) {
+      font-size: 0.95rem;
+      padding: 10px 20px;
+    }
+
     @media (max-width: 480px) {
-      font-size: 1.4rem;
+      font-size: 0.85rem;
       padding: 8px 16px;
+    }
+
+    @media (max-width: 360px) {
+      font-size: 0.75rem;
+      padding: 6px 12px;
     }
   }
 
@@ -262,5 +272,16 @@
         background: #512d9e;
       }
     }
+  }
+
+  .submit-error-msg {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 6px;
+    font-weight: 500;
+    text-align: center;
   }
 }

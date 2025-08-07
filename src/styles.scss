@@ -1,3 +1,18 @@
+/* =======================
+   SCSS Variables (Global)
+========================== */
+$primary-bg: rgb(44, 25, 89);
+$secondary-bg: rgb(19, 15, 61);
+$highlight-color: rgb(151, 66, 255);
+$social-bg: rgb(74, 35, 136);
+$social-hover: rgba(255, 204, 0, 0.15);
+$text-color: #ffffff;
+$link-hover: $highlight-color;
+
+
+/* =======================
+   CSS Variables (Root)
+========================== */
 :root {
   /* Colors */
   --bg-purple: hsla(267, 100%, 63%, 1);
@@ -10,12 +25,13 @@
 
   /* Gradients */
   --gradient-1: linear-gradient(to right bottom,
-      hsl(299, 100%, 52%), hsl(291, 100%, 58%),
-      hsl(283, 100%, 60%), hsl(273, 100%, 62%),
-      hsl(262, 100%, 63%), hsl(242, 100%, 69%),
-      hsl(223, 100%, 62%), hsl(210, 100%, 50%),
-      hsl(203, 100%, 50%), hsl(198, 100%, 50%),
-      hsl(192, 100%, 48%), hsl(185, 90%, 48%));
+    hsl(299, 100%, 52%), hsl(291, 100%, 58%),
+    hsl(283, 100%, 60%), hsl(273, 100%, 62%),
+    hsl(262, 100%, 63%), hsl(242, 100%, 69%),
+    hsl(223, 100%, 62%), hsl(210, 100%, 50%),
+    hsl(203, 100%, 50%), hsl(198, 100%, 50%),
+    hsl(192, 100%, 48%), hsl(185, 90%, 48%)
+  );
   --gradient-2: linear-gradient(90deg, transparent 0%, #9841ff 50%, transparent 100%);
 
   /* Text Colors */
@@ -71,6 +87,10 @@
   --cubic-out: cubic-bezier(0.05, 0.83, 0.52, 0.97);
 }
 
+
+/* =======================
+   Global Styling
+========================== */
 body {
   margin: 0;
   padding: 0;
@@ -82,3 +102,65 @@ body {
     family: var(--main-font-family);
   };
 }
+
+
+
+
+
+// /* =======================
+//    SCSS Variables (Global)
+// ========================== */
+// $primary-bg: rgb(44, 25, 89);
+// $navbar-bg: rgb(12, 12, 54);
+// $body-bg: rgb(32, 16, 69);
+// $text-color: #ffffff;
+// $link-hover: rgb(151, 66, 255);
+// $social-hover: rgba(255, 204, 0, 0.15);
+
+
+// /* =======================
+//    CSS Variables (Root)
+// ========================== */
+// :root {
+//   --primary-bg: #2c1959;
+//   --navbar-bg: #0c0c36;
+//   --body-bg: #201045;
+//   --text-color: #ffffff;
+//   --link-hover: #9742ff;
+//   --social-hover: rgba(255, 204, 0, 0.15);
+
+//   --font-family: 'Work Sans', sans-serif;
+//   --font-size: 16px;
+
+//   --section-spacing: 60px;
+//   --radius-5: 5px;
+//   --transition-default: 250ms ease;
+// }
+
+
+// /* =======================
+//    Global Styling
+// ========================== */
+// body {
+//   margin: 0;
+//   padding: 0;
+//   background-color: var(--body-bg);
+//   color: var(--text-color);
+//   font-family: var(--font-family);
+//   font-size: var(--font-size);
+// }
+
+// .navbar {
+//   background-color: var(--navbar-bg);
+// }
+
+// footer,
+// .btn,
+// .button {
+//   background-color: var(--primary-bg);
+//   color: var(--text-color);
+// }
+
+// a:hover {
+//   color: var(--link-hover);
+// }

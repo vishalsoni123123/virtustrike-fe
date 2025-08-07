@@ -17,7 +17,7 @@ export class BookingDetailsComponent implements OnInit {
   constructor(
     private bookingService: BookingDetailsService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.fetchBookings(this.page);
@@ -26,16 +26,24 @@ export class BookingDetailsComponent implements OnInit {
   fetchBookings(page: number): void {
     this.bookingService.getAllBookings(page, this.size).subscribe({
       next: (res) => {
-        this.bookings = (res.data || []).map((booking: any) => ({
-          ...booking,
-          bookingDate: new Date(booking.bookingDate),
-          slotDate: booking.slotDate ? new Date(booking.slotDate) : null
-        }));
+        // Convert dates and sort in descending order (newest first)
+        this.bookings = (res.data || [])
+          .map((booking: any) => ({
+            ...booking,
+            bookingDate: new Date(booking.bookingDate),
+            slotDate: booking.slotDate ? new Date(booking.slotDate) : null
+          }))
+          .sort((a: any, b: any) => {
+            const dateA = new Date(a.bookingDate).getTime();
+            const dateB = new Date(b.bookingDate).getTime();
+            return dateB - dateA; // Newest first
+          });
+
         this.totalItems = res.totalRecords || 0;
         this.page = res.pageNumber || 0;
       },
       error: (err) => {
-        console.error('Error fetching bookings:', err);
+        // console.error('Error fetching bookings:', err);
       }
     });
   }

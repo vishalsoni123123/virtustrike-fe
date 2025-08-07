@@ -98,28 +98,3 @@
         margin-right: auto;
     }
 }
-
-// Responsive Design
-@media (max-width: 768px) {
-    .booking-details-view {
-        padding: 1.2rem;
-
-        .details-grid {
-            .row {
-                flex-direction: column;
-            }
-        }
-
-        .action-buttons {
-            flex-direction: column;
-
-            .close-btn {
-                width: 100%;
-            }
-        }
-
-        h2 {
-            font-size: 1.5rem;
-        }
-    }
-}

@@ -85,19 +85,22 @@
   </div>
 
   <!-- Login Modal -->
-  <div class="modal" tabindex="-1" [class.show]="showLoginModal" style="display: block;" *ngIf="showLoginModal">
+  <div class="custom-login-modal" *ngIf="showLoginModal">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Login Required</h5>
+          <h5 class="modal-title">Sign In Required</h5>
           <button type="button" class="btn-close" (click)="showLoginModal = false"></button>
         </div>
         <div class="modal-body">
-          <p>You need to login to continue booking this game.</p>
+          <p>
+            You need to <strong>Sign In</strong> to continue booking this game.<br>
+            Don't worry, it only takes a moment!
+          </p>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-secondary" (click)="showLoginModal = false">Cancel</button>
-          <button class="btn btn-primary" (click)="navigateToLogin()">Login Now</button>
+          <button class="btn cancel-btn" (click)="showLoginModal = false">Cancel</button>
+          <button class="btn login-btn" (click)="navigateToLogin()">Sign In Now</button>
         </div>
       </div>
     </div>

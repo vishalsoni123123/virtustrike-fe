@@ -23,12 +23,19 @@ export class CustomersComponent implements OnInit {
     const pageNumber = page - 1;
     this.userService.findAllUsers(pageNumber, this.size).subscribe({
       next: (res) => {
-        this.customers = res.data || [];
+        // Sort customers by creation/registration date (latest first)
+        this.customers = (res.data || [])
+          .sort((a: any, b: any) => {
+            const dateA = new Date(a.createdAt || a.registrationDate).getTime();
+            const dateB = new Date(b.createdAt || b.registrationDate).getTime();
+            return dateB - dateA; // Latest first
+          });
+
         this.totalItems = res.totalRecords || 0;
         this.page = page;
       },
       error: (err) => {
-        console.error('Error fetching customers:', err);
+        // console.error('Error fetching customers:', err);
       }
     });
   }

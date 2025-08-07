@@ -19,6 +19,9 @@ export class EnquiryComponent implements OnInit {
   remarkCharCount: number = 0;
   isLoading: boolean = false;
 
+  message: string = '';
+  messageType: 'success' | 'error' | '' = '';
+
   constructor(private contactService: ContactService) { }
 
   ngOnInit(): void {
@@ -31,14 +34,20 @@ export class EnquiryComponent implements OnInit {
 
     this.contactService.getAllContacts(backendPage, this.size).subscribe({
       next: (res) => {
-        this.enquiries = res.data || [];
+        // Sort enquiries by submitted_on in descending order (newest first)
+        this.enquiries = (res.data || []).sort((a: any, b: any) => {
+          const dateA = new Date(a.submitted_on || a.createdAt).getTime();
+          const dateB = new Date(b.submitted_on || b.createdAt).getTime();
+          return dateB - dateA;
+        });
+
         this.totalItems = res.totalRecords || 0;
         this.totalPages = Math.ceil(this.totalItems / this.size);
         this.isLoading = false;
       },
       error: () => {
-        alert('Failed to load enquiries');
         this.isLoading = false;
+        this.showMessage('Failed to load enquiries.', 'error');
       }
     });
   }
@@ -85,18 +94,25 @@ export class EnquiryComponent implements OnInit {
       this.updatedRemark
     ).subscribe({
       next: () => {
-        // Update local values to avoid unsaved changes popup
         this.selectedEnquiry.status = this.updatedStatus;
         this.selectedEnquiry.remark = this.updatedRemark;
 
-        //  No alert here
         this.closeView();
         this.getEnquiries();
+        this.showMessage('Enquiry updated successfully.', 'success');
       },
       error: () => {
-        // Show alert only if something goes wrong
-        alert('Failed to update.');
+        this.showMessage('Failed to update enquiry. Please try again.', 'error');
       }
     });
+  }
+
+  private showMessage(msg: string, type: 'success' | 'error') {
+    this.message = msg;
+    this.messageType = type;
+    setTimeout(() => {
+      this.message = '';
+      this.messageType = '';
+    }, 3000); // Hide after 3 seconds
   }
 }

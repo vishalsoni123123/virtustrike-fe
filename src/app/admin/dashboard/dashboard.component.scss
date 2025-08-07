@@ -334,23 +334,6 @@
       }
     }
   }
-
-  // Responsive (Tablet & Mobile)
-  @media (max-width: 768px) {
-    .user-details-view {
-      .details-grid {
-        flex-direction: column;
-      }
-
-      .action-buttons {
-        flex-direction: column;
-
-        button {
-          width: 100%;
-        }
-      }
-    }
-  }
 }
 
 // Main Layout & Sidebar Styling

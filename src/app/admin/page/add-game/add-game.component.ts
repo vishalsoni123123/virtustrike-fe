@@ -22,6 +22,9 @@ export class AddGameComponent {
   previewUrls: string[] = [];
   isSubmitting = false;
 
+  message: string = '';
+  isSuccess: boolean = false;
+
   constructor(private http: HttpClient) { }
 
   onImageSelected(event: Event): void {
@@ -51,7 +54,7 @@ export class AddGameComponent {
 
   addGame(): void {
     if (!this.isFormValid()) {
-      alert('Please fill in all required fields.');
+      this.showMessage('Please fill in all required fields with valid values.', false);
       return;
     }
 
@@ -70,9 +73,9 @@ export class AddGameComponent {
 
     const encodedData = encodeURIComponent(JSON.stringify(data));
 
-    this.game.imageFiles.forEach((file) =>
-      formData.append('gameImageFiles', file)
-    );
+    this.game.imageFiles.forEach((file) => {
+      formData.append('gameImageFiles', file);
+    });
 
     if (this.game.videoFile) {
       formData.append('gameVideoFile', this.game.videoFile);
@@ -84,13 +87,20 @@ export class AddGameComponent {
         formData
       )
       .subscribe({
-        next: () => {
-          alert('Game added successfully!');
+        next: (response: any) => {
+          this.showMessage('Game added successfully!', true);
+          console.log('Server response:', response);
           this.resetForm();
         },
         error: (err) => {
-          console.error('Error:', err);
-          alert('Failed to add game.');
+          console.error('Error response:', err);
+          if (err.status === 400) {
+            this.showMessage('Bad Request: Please check your input data.', false);
+          } else if (err.status === 500) {
+            this.showMessage('Server error: Please try again later.', false);
+          } else {
+            this.showMessage('Failed to add game. Please try again.', false);
+          }
         },
         complete: () => {
           this.isSubmitting = false;
@@ -142,6 +152,15 @@ export class AddGameComponent {
     fileInputs.forEach((input) => {
       (input as HTMLInputElement).value = '';
     });
+  }
+
+  showMessage(msg: string, success: boolean) {
+    this.message = msg;
+    this.isSuccess = success;
+
+    setTimeout(() => {
+      this.message = '';
+    }, 4000);
   }
 
   @HostListener('wheel', ['$event'])

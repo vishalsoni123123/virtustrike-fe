@@ -2,7 +2,12 @@
 <h2 class="heading">Add New Game</h2>
 
 <div class="game-add-container">
-  
+
+  <!-- Message Box -->
+  <div *ngIf="message" [ngClass]="{'success-msg': isSuccess, 'error-msg': !isSuccess}" class="message-box">
+    {{ message }}
+  </div>
+
   <div class="card-section">
     <!-- Wide Input 1 -->
     <input type="text" [(ngModel)]="game.name" name="name" placeholder="Game Name" required />
@@ -39,11 +44,11 @@
     </div>
 
     <!-- Preview Images -->
-    <div class="image-preview" *ngIf="previewUrls.length">
+    <!-- <div class="image-preview" *ngIf="previewUrls.length">
       <div *ngFor="let url of previewUrls" class="thumb">
         <img [src]="url" alt="Preview" />
       </div>
-    </div>
+    </div> -->
 
     <!-- Submit Button -->
     <button type="button" (click)="addGame()" [disabled]="isSubmitting">
