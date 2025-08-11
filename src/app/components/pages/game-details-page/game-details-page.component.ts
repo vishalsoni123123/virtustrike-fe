@@ -1,11 +1,5 @@
- import {
-  Component,
-  OnInit,
-  ViewChildren,
-  QueryList,
-  ElementRef,
-  AfterViewInit
-} from '@angular/core';import { ActivatedRoute, Router } from '@angular/router';
+import {Component,OnInit,ViewChildren,QueryList,ElementRef,AfterViewInit} from '@angular/core'; 
+import { ActivatedRoute, Router } from '@angular/router';
 import { GameService } from 'src/app/service/game-servise';
 
 @Component({
@@ -70,16 +64,39 @@ export class GameDetailsPageComponent implements OnInit {
     }
   }
 
-    isLoggedIn(): boolean {
+  isLoggedIn(): boolean {
     try {
       const user = JSON.parse(localStorage.getItem('user') || 'null');
-      return !!user?.userId;
-    } catch {
+      const token = localStorage.getItem('token');
+
+      if (!user?.userId || !token) {
+        return false;
+      }
+
+      // Decode JWT token expiry
+      const payloadBase64 = token.split('.')[1];
+      if (!payloadBase64) return false;
+
+      const payload = JSON.parse(atob(payloadBase64));
+      const exp = payload.exp ? payload.exp * 1000 : 0;
+      const now = Date.now();
+
+      if (exp && now > exp) {
+        // Token expired => logout
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        return false;
+      }
+
+      return true;
+    } catch (err) {
+      console.error('Token check failed', err);
       return false;
     }
   }
 
-   handleBooking(): void {
+
+  handleBooking(): void {
     if (!this.isLoggedIn()) {
       this.showLoginModal = true;
       return;
@@ -88,7 +105,8 @@ export class GameDetailsPageComponent implements OnInit {
       gameId: this.game.id,
       name: this.game.name,
       minPlayers: this.game.minPlayers,
-      maxPlayers: this.game.maxPlayers
+      maxPlayers: this.game.maxPlayers,
+      price: this.game.pricePerPlayer || this.game.pricePerHour || 0
     };
     this.router.navigate(['/booking'], { queryParams: qp });
   }

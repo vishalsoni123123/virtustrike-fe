@@ -11,6 +11,7 @@ import { BookingDetailViewComponent } from './page/booking-detail-view/booking-d
 import { AnalyticsComponent } from './page/analytics/analytics.component';
 import { CalendarComponent } from './page/calendar/calendar.component';
 import { CashBookingComponent } from './page/cash-booking/cash-booking.component';
+import { AdminProfileComponent } from './page/admin-profile/admin-profile.component';
 
 
 // Admin-Routing
@@ -20,6 +21,7 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
+      {path:'admin-profile',component:AdminProfileComponent},
       { path: 'booking/details/list', component: BookingDetailsComponent },
       { path: 'booking-details/:id', component: BookingDetailViewComponent },
       { path: 'customers', component: CustomersComponent },

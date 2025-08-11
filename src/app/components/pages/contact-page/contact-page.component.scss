@@ -37,7 +37,7 @@
       background: linear-gradient(to right, #A83EFF, #00A4FF);
     }
 
-     @media (max-width: 768px) {
+    @media (max-width: 768px) {
       font-size: 0.95rem;
       padding: 10px 20px;
     }
@@ -209,22 +209,26 @@
     }
 
     button[type="submit"] {
-      background-color: #6f42c1;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      background: linear-gradient(to right, #de28ff, #3376ff);
       color: white;
       font-weight: bold;
-      padding: 0.8rem;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      transition: background 0.3s;
+      text-transform: uppercase;
+      border-radius: 15px 0 15px 0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: background 0.3s ease, transform 0.2s ease;
 
       &:hover {
-        background-color: #512d9e;
+        background: linear-gradient(to right, #a83eff, #00a4ff);
+        transform: scale(1.02);
       }
 
       &:disabled {
-        background-color: #9a84c1;
+        background: linear-gradient(to right, #b79acf, #84a9bd) !important;
         cursor: not-allowed;
+        opacity: 0.7;
       }
     }
   }
@@ -245,43 +249,120 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background: rgba(30, 11, 60, 0.9);
+    background: rgba(30, 11, 60, 0.6);
+    backdrop-filter: blur(6px);
+    animation: fadeIn 0.3s ease-out;
+    z-index: 1;
   }
 
   .modal-content {
-    background: #fff;
+    position: relative;
+    z-index: 2;
+    background: rgb(57, 41, 92);
     padding: 2rem;
-    border-radius: 12px;
-    z-index: 1;
+    border-radius: 20px;
     text-align: center;
+    width: 90%;
+    max-width: 400px;
+    animation: slideIn 0.4s ease-out forwards;
 
-    h2 {
-      color: #512d9e;
+    &.fade-out {
+      animation: fadeOut 0.3s ease-in forwards;
     }
 
-    button {
-      margin-top: 1rem;
-      background: #6f42c1;
-      color: white;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
+    h2 {
+      color: rgb(255, 0, 255);
+      margin-bottom: 0.5rem;
+    }
 
-      &:hover {
-        background: #512d9e;
-      }
+    p {
+      color: #ccc;
+      margin-bottom: 1.5rem;
     }
   }
 
-  .submit-error-msg {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-    border-radius: 6px;
-    font-weight: 500;
-    text-align: center;
+  .modern-btn {
+    background: linear-gradient(135deg, #DE28FF, #3376FF);
+    padding: 0.6rem 1.4rem;
+    border-radius: 15px 0 15px 0;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: linear-gradient(135deg, #A83EFF, #00A4FF);
+      box-shadow: 0 6px 20px rgba(0, 164, 255, 0.5);
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: scale(0.97);
+    }
+  }
+}
+
+// Animations
+@keyframes slideIn {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+// Animations
+@keyframes slideIn {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }

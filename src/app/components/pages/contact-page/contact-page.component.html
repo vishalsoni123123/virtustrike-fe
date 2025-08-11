@@ -76,9 +76,9 @@
 <!-- Modal -->
 <div class="confirmation-modal" *ngIf="showSuccessMessage">
   <div class="modal-backdrop"></div>
-  <div class="modal-content">
+  <div class="modal-content animate-modal" [class.fade-out]="isClosing">
     <h2>Message Sent Successfully! 🎉</h2>
     <p>Thank you for reaching out to us. We'll get back to you soon.</p>
-    <button (click)="closeSuccessMessage()">OK</button>
+    <button class="modern-btn" (click)="closeSuccessMessage()">OK</button>
   </div>
 </div>

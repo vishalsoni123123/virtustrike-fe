@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UrlService } from './url-service';
@@ -41,13 +41,24 @@ export class GameService {
         return this.http.get(`${this.baseUrl}/FindById/${id}`);
     }
 
-    // UPDATE GAME WITH MEDIA
-    updateGameWithMedia(formData: FormData): Observable<any> {
-        const token = localStorage.getItem('token') || '';
-        const headers = new HttpHeaders()
-            .set('Authorization', `Bearer ${token}`);
+    // UPDATE GAME (this method was missing, added now)
+    updateGame(game: any): Observable<any> {
+        return this.http.put(`${this.baseUrl}/update/${game.id}`, game);
+    }
 
-        return this.http.put(`${this.baseUrl}/updateWithMedia`, formData, { headers });
+    // UPDATE GAME WITH MEDIA
+    updateGameWithMedia(gameUpdateRequestModel: any, imageFile?: File, videoFile?: File) {
+        const formData = new FormData();
+        formData.append('GameUpdateRequestModelJson', JSON.stringify(gameUpdateRequestModel));
+
+        if (imageFile) {
+            formData.append('imageFile', imageFile, imageFile.name);
+        }
+        if (videoFile) {
+            formData.append('videoFile', videoFile, videoFile.name);
+        }
+
+        return this.http.put(`${this.baseUrl}/update/${gameUpdateRequestModel.id}`, formData);
     }
 
     // S3 IMAGE URL
@@ -84,11 +95,11 @@ export class GameService {
             .set('sortBy', sortBy)
             .set('sortDir', sortDir);
 
-        if (centerId !== undefined) params = params.set('centerId', centerId);
+        if (centerId !== undefined) params = params.set('centerId', centerId.toString());
         if (keyword) params = params.set('keyword', keyword);
         if (status) params = params.set('status', status);
-        if (startdate !== undefined) params = params.set('startdate', startdate);
-        if (enddate !== undefined) params = params.set('enddate', enddate);
+        if (startdate !== undefined) params = params.set('startdate', startdate.toString());
+        if (enddate !== undefined) params = params.set('enddate', enddate.toString());
 
         return this.http.get(`${this.baseUrl}/FindAllFilter`, { params });
     }

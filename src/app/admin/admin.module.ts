@@ -20,11 +20,13 @@ import { AnalyticsComponent } from './page/analytics/analytics.component';
 import { CalendarComponent } from './page/calendar/calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CashBookingComponent } from './page/cash-booking/cash-booking.component';
+import { AdminProfileComponent } from './page/admin-profile/admin-profile.component';
 
 @NgModule({
   declarations: [
     LayoutComponent,
     DashboardComponent,
+    AdminProfileComponent,
     BookingDetailsComponent,
     BookingDetailViewComponent,
     CustomersComponent,

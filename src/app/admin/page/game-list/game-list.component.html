@@ -2,11 +2,6 @@
 
 <div class="game-container">
 
-  <div *ngIf="message"
-    [ngClass]="{'success-message': messageType === 'success', 'error-message': messageType === 'error'}">
-    {{ message }}
-  </div>
-
   <!-- List View -->
   <ng-container *ngIf="!selectedGame">
     <div *ngIf="loading" class="loading">Loading games...</div>
@@ -17,14 +12,13 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Image</th>
-            <th>Video</th>
-            <th>Name</th>
-            <th>Price/Hour</th>
-            <th>Min Players</th>
-            <th>Max Players</th>
-            <th>Status</th>
-            <th>Action</th>
+            <th>IMAGE</th>
+            <th>VIDEO</th>
+            <th>NAME</th>
+            <th>PRICE/HOUR</th>
+            <th>MIN PLAYERS</th>
+            <th>MAX PLAYERS</th>
+            <th>ACTION</th>
           </tr>
         </thead>
         <tbody>
@@ -44,12 +38,6 @@
             <td>₹{{ game.pricePerHour }}</td>
             <td>{{ game.minPlayers }} Player</td>
             <td>{{ game.maxPlayers }} Player</td>
-            <td>
-              <select [(ngModel)]="game.status" (change)="updateGameStatus(game)">
-                <option value="ACTIVE">ACTIVE</option>
-                <option value="INACTIVE">INACTIVE</option>
-              </select>
-            </td>
             <td>
               <button (click)="viewGame(game)">View</button>
             </td>
@@ -74,8 +62,8 @@
           <img *ngIf="selectedGame.imageUrl" [src]="selectedGame.imageUrl" alt="Game Image" />
         </div>
         <div class="media-box">
-          <video *ngIf="selectedGame.videoUrl" [src]="selectedGame.videoUrl" autoplay loop muted playsinline
-            controls></video>
+          <video *ngIf="selectedGame.videoUrl" [src]="selectedGame.videoUrl" autoplay loop [muted]="true"
+            playsinline></video>
         </div>
       </div>
 
@@ -129,8 +117,9 @@
         </div>
       </div>
 
+
       <!-- Preview -->
-      <div class="preview-row" *ngIf="previewUrls.length">
+      <!-- <div class="preview-row" *ngIf="previewUrls.length">
         <div class="thumb" *ngFor="let url of previewUrls">
           <ng-container *ngIf="isImage(url); else videoBlock">
             <img [src]="url" alt="Preview" />
@@ -139,12 +128,18 @@
             <video [src]="url" autoplay loop muted playsinline></video>
           </ng-template>
         </div>
-      </div>
+      </div> -->
 
       <!-- Actions -->
       <div class="btn-group">
         <button class="update-btn" (click)="updateGame()">Update</button>
         <button class="back-btn" (click)="backToList()">Close</button>
+      </div>
+
+      <div *ngIf="message"
+        [ngClass]="{'success-message': messageType === 'success', 'error-message': messageType === 'error'}"
+        class="message-box">
+        {{ message }}
       </div>
     </div>
   </ng-container>

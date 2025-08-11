@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { AboutPageComponent } from './components/pages/about-page/about-page.component';
 import { PrivacyPolicyPageComponent } from './components/pages/privacy-policy-page/privacy-policy-page.component';
 import { TermsOfServicePageComponent } from './components/pages/terms-of-service-page/terms-of-service-page.component';
@@ -17,37 +18,36 @@ import { BookingPageComponent } from './components/pages/booking-page/booking-pa
 import { OtpPageComponent } from './components/pages/otp-page/otp-page.component';
 import { PaymentPageComponent } from './components/pages/payment-page/payment-page.component';
 import { VerifyResetOtpComponent } from './components/pages/verify-reset-otp-page/verify-reset-otp.component';
+
 import { AdminGuard } from './interceptors/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'about', component: AboutPageComponent },
-  { path: 'games', component: GamesComponent },
-  { path: 'game/:id', component: GameDetailsPageComponent },
-  { path: 'game-news', component: GameNewsPageComponent },
-  { path: 'booking', component: BookingPageComponent },
-  { path: 'tournament', component: TournamentComponent },
-  { path: 'contact', component: ContactPageComponent },
+  // Public routes
+  { path: '', loadChildren: () => import('./public/public.module').then(m => m.PublicModule) },
+
+  // Other direct routes if any (optional, you can move all to PublicModule)
   { path: 'sign-in', component: SignInPageComponent },
   { path: 'verify-otp', component: OtpPageComponent },
   { path: 'verify-reset-otp', component: VerifyResetOtpComponent },
   { path: 'forgot-password', component: ForgotPasswordPageComponent },
   { path: 'register', component: RegisterPageComponent },
+  { path: 'booking', component: BookingPageComponent },
   { path: 'my-profile', component: MyProfilePageComponent },
-  { path: 'terms-of-service', component: TermsOfServicePageComponent },
-  { path: 'privacy-policy', component: PrivacyPolicyPageComponent },
   { path: 'payment', component: PaymentPageComponent },
 
-  // Admin Module
+  // Admin Module lazy loaded with guard
   {
     path: 'admin',
     canActivate: [AdminGuard],
-    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
-  }];
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+  },
+
+  // Wildcard redirect to home or 404 component if you have
+  { path: '**', redirectTo: '', pathMatch: 'full' },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule { }

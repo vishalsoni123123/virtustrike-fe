@@ -1,4 +1,4 @@
-<div class="payment-container">
+<div class="payment-container" *ngIf="!paymentSuccessDone">
   <h2 class="title">Complete Your Payment</h2>
 
   <div class="details">
@@ -11,4 +11,10 @@
   <div *ngIf="statusMessage" class="status" [ngClass]="statusType">
     {{ statusMessage }}
   </div>
+</div>
+
+<div class="thankyou-container" *ngIf="paymentSuccessDone" @fadeInAnimation>
+  <h2>🎉 Thank you for your payment!</h2>
+  <p>Your booking #{{ bookingDetailId }} has been confirmed.</p>
+  <button (click)="onOkClick()" class="ok-btn">OK</button>
 </div>

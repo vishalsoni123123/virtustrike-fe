@@ -15,10 +15,13 @@ export class GameListComponent implements OnInit {
   selectedGame: any = null;
   previewUrls: string[] = [];
 
+  selectedImageFile: File | null = null;
+  selectedVideoFile: File | null = null;
+
   message: string = '';
   messageType: 'success' | 'error' | '' = '';
 
-  constructor(public gameService: GameService) {}
+  constructor(public gameService: GameService) { }
 
   ngOnInit(): void {
     this.getAllGames();
@@ -27,24 +30,30 @@ export class GameListComponent implements OnInit {
   getAllGames(): void {
     this.loading = true;
     this.gameService.getAllGames(this.currentPage, this.pageSize).subscribe({
-      next: (res) => {
+      next: (res: any) => {
         const gameList = res?.data || [];
         this.games = gameList.map((game: any) => ({
           ...game,
-          imageUrl: game.image_url?.startsWith('http')
-            ? game.image_url
-            : this.gameService.getImageUrl(game.image_url),
-          videoUrl: game.video_url?.startsWith('http')
-            ? game.video_url
-            : this.gameService.getVideoUrl(game.video_url)
+          imageUrl: Array.isArray(game.image_url)
+            ? game.image_url.map((img: string) => img.startsWith('http') ? img : this.gameService.getImageUrl(img))
+            : game.image_url
+              ? [game.image_url.startsWith('http') ? game.image_url : this.gameService.getImageUrl(game.image_url)]
+              : [],
+          videoUrl: Array.isArray(game.video_url)
+            ? game.video_url.map((vid: string) => vid.startsWith('http') ? vid : this.gameService.getVideoUrl(vid))
+            : game.video_url
+              ? [game.video_url.startsWith('http') ? game.video_url : this.gameService.getVideoUrl(game.video_url)]
+              : []
         }));
 
         this.totalRecords = res?.totalRecords || 0;
         this.loading = false;
       },
-      error: (err) => {
-        // console.error('Error fetching games:', err);
+      error: () => {
         this.loading = false;
+        this.message = 'Error fetching games.';
+        this.messageType = 'error';
+        setTimeout(() => this.clearMessage(), 3000);
       }
     });
   }
@@ -61,13 +70,18 @@ export class GameListComponent implements OnInit {
   }
 
   viewGame(game: any): void {
-    this.selectedGame = game;
+    this.selectedGame = { ...game };  
     this.previewUrls = [];
+
+    this.selectedImageFile = null;
+    this.selectedVideoFile = null;
   }
 
   backToList(): void {
     this.selectedGame = null;
     this.previewUrls = [];
+    this.selectedImageFile = null;
+    this.selectedVideoFile = null;
   }
 
   updateGameStatus(game: any): void {
@@ -77,8 +91,7 @@ export class GameListComponent implements OnInit {
         this.messageType = 'success';
         setTimeout(() => this.clearMessage(), 3000);
       },
-      error: (err) => {
-        // console.error('Failed to update game status:', err);
+      error: () => {
         this.message = 'Error updating game status.';
         this.messageType = 'error';
         setTimeout(() => this.clearMessage(), 3000);
@@ -94,28 +107,32 @@ export class GameListComponent implements OnInit {
   onImageSelected(event: Event): void {
     const files = (event.target as HTMLInputElement).files;
     if (files && files.length > 0) {
-      Array.from(files).forEach(file => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          if (reader.result) {
-            this.previewUrls.push(reader.result.toString());
-          }
-        };
-        reader.readAsDataURL(file);
-      });
-    }
-  }
+      this.selectedImageFile = files[0];
+      this.previewUrls = [];
 
-  onVideoSelected(event: Event): void {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
       const reader = new FileReader();
       reader.onload = () => {
         if (reader.result) {
           this.previewUrls.push(reader.result.toString());
         }
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(this.selectedImageFile);
+    }
+  }
+
+  onVideoSelected(event: Event): void {
+    const files = (event.target as HTMLInputElement).files;
+    if (files && files.length > 0) {
+      this.selectedVideoFile = files[0];
+      this.previewUrls = [];
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (reader.result) {
+          this.previewUrls.push(reader.result.toString());
+        }
+      };
+      reader.readAsDataURL(this.selectedVideoFile);
     }
   }
 
@@ -128,16 +145,74 @@ export class GameListComponent implements OnInit {
   }
 
   isImage(url: string): boolean {
-    return url.match(/\.(jpeg|jpg|gif|png|webp)$/i) != null;
+    return /\.(jpeg|jpg|gif|png|webp)$/i.test(url);
   }
 
   isVideo(url: string): boolean {
-    return url.match(/\.(mp4|webm|ogg)$/i) != null;
+    return /\.(mp4|webm|ogg)$/i.test(url);
   }
 
   updateGame(): void {
-    this.message = 'Game update functionality not implemented yet.';
-    this.messageType = 'error';
-    setTimeout(() => this.clearMessage(), 3000);
+    if (!this.selectedGame) return;
+
+    const updatedGame = { ...this.selectedGame };
+
+    // Ensure imageUrl is always an array
+    if (updatedGame.imageUrl) {
+      if (typeof updatedGame.imageUrl === 'string') {
+        updatedGame.imageUrl = [updatedGame.imageUrl];
+      }
+    } else {
+      updatedGame.imageUrl = [];
+    }
+
+    // Ensure videoUrl is always an array
+    if (updatedGame.videoUrl) {
+      if (typeof updatedGame.videoUrl === 'string') {
+        updatedGame.videoUrl = [updatedGame.videoUrl];
+      }
+    } else {
+      updatedGame.videoUrl = [];
+    }
+
+    updatedGame.image_url = updatedGame.imageUrl.length > 0 ? updatedGame.imageUrl[0] : null;
+    updatedGame.video_url = updatedGame.videoUrl.length > 0 ? updatedGame.videoUrl[0] : null;
+
+    // Remove frontend-only properties to avoid confusion
+    delete updatedGame.imageUrl;
+    delete updatedGame.videoUrl;
+
+    const imageFile = this.selectedImageFile ?? undefined;
+    const videoFile = this.selectedVideoFile ?? undefined;
+
+    this.gameService.updateGameWithMedia(updatedGame, imageFile, videoFile).subscribe({
+      next: (res: any) => {
+        this.message = `Game ID ${updatedGame.id} updated successfully.`;
+        this.messageType = 'success';
+        setTimeout(() => this.clearMessage(), 3000);
+
+        const updatedData = res.data;
+        const index = this.games.findIndex(g => g.id === updatedGame.id);
+        if (index !== -1) {
+          this.games[index] = {
+            ...updatedData,
+            imageUrl: updatedData.image_url?.startsWith('http')
+              ? updatedData.image_url
+              : this.gameService.getImageUrl(updatedData.image_url),
+            videoUrl: updatedData.video_url?.startsWith('http')
+              ? updatedData.video_url
+              : this.gameService.getVideoUrl(updatedData.video_url)
+          };
+        }
+
+        this.backToList();
+      },
+      
+      error: () => {
+        this.message = 'Error updating game.';
+        this.messageType = 'error';
+        setTimeout(() => this.clearMessage(), 3000);
+      }
+    });
   }
 }

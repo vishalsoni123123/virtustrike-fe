@@ -141,19 +141,19 @@ export class BookingPageComponent implements OnInit {
     });
   }
   toggleSlotSelection(slotId: number) {
-  const currentSlots: number[] = this.bookingForm.get('slots')?.value || [];
+    const currentSlots: number[] = this.bookingForm.get('slots')?.value || [];
 
-  if (currentSlots.includes(slotId)) {
-    const updated = currentSlots.filter(id => id !== slotId);
-    this.bookingForm.get('slots')?.setValue(updated);
-  } else {
-    this.bookingForm.get('slots')?.setValue([...currentSlots, slotId]);
+    if (currentSlots.includes(slotId)) {
+      const updated = currentSlots.filter(id => id !== slotId);
+      this.bookingForm.get('slots')?.setValue(updated);
+    } else {
+      this.bookingForm.get('slots')?.setValue([...currentSlots, slotId]);
+    }
   }
-}
 
-isSlotSelected(slotId: number): boolean {
-  return this.bookingForm.get('slots')?.value?.includes(slotId);
-}
+  isSlotSelected(slotId: number): boolean {
+    return this.bookingForm.get('slots')?.value?.includes(slotId);
+  }
 
   get totalPrice(): number {
     const players = +this.bookingForm.get('player')?.value || 0;
@@ -180,7 +180,7 @@ isSlotSelected(slotId: number): boolean {
       next: (res) => {
         const bookingDetailId = res?.data?.id;
         if (!bookingDetailId) {
-           this.successMessage = 'Booking failed: No booking ID received.';
+          this.successMessage = 'Booking failed: No booking ID received.';
           return;
         }
 
@@ -201,7 +201,7 @@ isSlotSelected(slotId: number): boolean {
       },
       error: err => {
         console.error('Booking error:', err);
-         this.successMessage = ' Booking failed. Please try again later.';
+        this.successMessage = ' Booking failed. Please try again later.';
       }
     });
   }

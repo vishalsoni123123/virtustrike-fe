@@ -17,9 +17,9 @@ export class ContactPageComponent {
   messageLength = 0;
 
   isSubmitting = false;
-  submitSuccess = false;
   submitError = '';
   showSuccessMessage = false;
+  isClosing = false; // closing animation flag
 
   constructor(private fb: FormBuilder, private contactService: ContactService) {
     this.contactForm = this.fb.group({
@@ -66,43 +66,50 @@ export class ContactPageComponent {
     control.setValue(value, { emitEvent: false });
   }
 
- onSubmit(): void {
-  if (this.contactForm.invalid) {
-    this.contactForm.markAllAsTouched();
-    return;
+  onSubmit(): void {
+    if (this.contactForm.invalid) {
+      this.contactForm.markAllAsTouched();
+      return;
+    }
+
+    this.isSubmitting = true;
+    this.submitError = '';
+    const formValue = this.contactForm.value;
+
+    const contactData = {
+      ...formValue,
+      description: formValue.message
+    };
+    delete contactData.message;
+
+    this.contactService.addContact(contactData).subscribe({
+      next: () => {
+        this.isSubmitting = false;
+        this.contactForm.reset();
+        this.resetCharCounts();
+        this.showSuccessMessage = true;
+      },
+      error: (err) => {
+        this.isSubmitting = false;
+        this.submitError = 'Something went wrong. Please try again later.';
+        console.error('Contact form submission error:', err);
+      }
+    });
   }
 
-  this.isSubmitting = true;
-  this.submitSuccess = false;
-  this.submitError = '';
-  this.showSuccessMessage = false;
-
-  const formValue = this.contactForm.value;
-
-  // Send 'message' as 'description' to the backend
-  const contactData = {
-    ...formValue,
-    description: formValue.message
-  };
-  delete contactData.message;
-
-  this.contactService.addContact(contactData).subscribe({
-    next: () => {
-      this.isSubmitting = false;
-      this.submitSuccess = true;
-      this.showSuccessMessage = true;
-      this.contactForm.reset();
-      this.nameLength = this.emailLength = this.mobileNumberLength = this.subjectLength = this.messageLength = 0;
-    },
-    error: (err) => {
-      this.isSubmitting = false;
-      this.submitError = 'Something went wrong. Please try again later.';
-      console.error('Contact form submission error:', err);
-    }
-  });
-}
-
   closeSuccessMessage(): void {
-    this.showSuccessMessage = false;
+    this.isClosing = true;
+    setTimeout(() => {
+      this.showSuccessMessage = false;
+      this.isClosing = false;
+    }, 300); // fade-out duration
+  }
+
+  private resetCharCounts(): void {
+    this.nameLength = 0;
+    this.emailLength = 0;
+    this.mobileNumberLength = 0;
+    this.subjectLength = 0;
+    this.messageLength = 0;
   }
 }

@@ -144,13 +144,50 @@
         }
     }
 
+    form {
+        .form-group {
+            margin-bottom: 1.2rem;
+            display: flex;
+            flex-direction: column;
+
+            select {
+                background-color: #201045;
+                box-shadow: inset 0 0 6px rgba(222, 40, 255, 0.5);
+                border: 1px solid #444;
+                margin: 5px;
+                border-radius: 10px;
+                padding: 12px 14px;
+                font-size: 15px;
+                color: #f1f1f1;
+                width: 100%;
+                transition: border 0.2s ease;
+
+                option {
+                    color: #000; 
+                    background-color: #fff;
+                }
+
+                &:focus {
+                    outline: none;
+                    border: 2px solid #00cec9;
+                }
+            }
+
+            small {
+                color: #de28ff;
+                font-size: 0.8rem;
+                margin-top: 4px;
+                font-weight: 500;
+            }
+        }
+    }
+
     // Booking List Table
     .booking-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 10px;
-        /* table se thoda gap dene ke liye */
     }
 
     .booking-header h3 {
@@ -337,6 +374,8 @@
                 box-sizing: border-box;
             }
         }
+
+
     }
 
     .action-buttons {

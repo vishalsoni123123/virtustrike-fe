@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentService } from '../../../service/payment.service';
 import { BillingService } from '../../../service/billing.service';
 
@@ -14,10 +14,13 @@ export class PaymentPageComponent implements OnInit {
   statusMessage: string = '';
   statusType: 'success' | 'error' | 'info' = 'info';
 
+  paymentSuccessDone: boolean = false;  // flag for thank you message
+
   constructor(
     private paymentService: PaymentService,
     private billingService: BillingService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +41,7 @@ export class PaymentPageComponent implements OnInit {
   showStatus(message: string, type: 'success' | 'error' | 'info') {
     this.statusMessage = message;
     this.statusType = type;
-    setTimeout(() => this.statusMessage = '', 4000); // auto hide
+    setTimeout(() => this.statusMessage = '', 4000);
   }
 
   payNow(): void {
@@ -70,16 +73,15 @@ export class PaymentPageComponent implements OnInit {
 
             this.paymentService.paymentSuccess(payload).subscribe(
               () => {
+                // Turant success message aur thank you flag set karo
                 this.showStatus('🎉 Payment Successful!', 'success');
+                this.paymentSuccessDone = true;
 
+                // Invoice bhejna background me asynchronously
                 this.billingService.sendInvoice(this.bookingDetailId).subscribe({
-                  next: () => console.log('Invoice sent'),
-                  error: err => console.error('Invoice error:', err)
+                  next: () => console.log('Invoice sent successfully'),
+                  error: err => console.error('Invoice sending failed:', err)
                 });
-
-                setTimeout(() => {
-                  window.location.href = '';
-                }, 3000);
               },
               () => {
                 this.showStatus('Payment succeeded but saving failed!', 'error');
@@ -97,5 +99,9 @@ export class PaymentPageComponent implements OnInit {
         this.showStatus('Failed to create Razorpay order', 'error');
       }
     );
+  }
+
+  onOkClick() {
+    this.router.navigate(['/']);
   }
 }

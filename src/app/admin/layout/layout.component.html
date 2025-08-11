@@ -60,11 +60,23 @@
             <div class="toolbar-right">
                 <a href="https://www.virtustrike.com/" target="_blank">
                     <i class="fas fa-globe"></i>
-                </a> <i class="fas fa-bell"></i>
-                <div class="profile-pic">
-                    <img src="assets/images/web-logo/logo.png" alt="User" />
+                </a>
+                <i class="fas fa-bell"></i>
+
+                <div class="profile-pic" style="cursor:pointer; position: relative;" (click)="toggleProfileDropdown()">
+                    <img [src]="profileImage" alt="User" class="profile-img" />
+
+                    <div *ngIf="isProfileDropdownOpen" class="profile-dropdown">
+                        <div class="dropdown-user-info">
+                            <img [src]="profileImage" alt="User" class="dropdown-profile-img" />
+                            <span class="dropdown-user-name">{{ profileName }}</span>
+                        </div>
+                        <button (click)="logout()" class="dropdown-item">Logout</button>
+                    </div>
                 </div>
+
             </div>
+
         </header>
 
         <!-- Routed Child Content -->
