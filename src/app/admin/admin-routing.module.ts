@@ -21,7 +21,7 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
-      {path:'admin-profile',component:AdminProfileComponent},
+      { path:'admin-profile',component:AdminProfileComponent},
       { path: 'booking/details/list', component: BookingDetailsComponent },
       { path: 'booking-details/:id', component: BookingDetailViewComponent },
       { path: 'customers', component: CustomersComponent },

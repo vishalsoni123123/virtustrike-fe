@@ -47,7 +47,7 @@ import { AdminProfileComponent } from './page/admin-profile/admin-profile.compon
     NgxPaginationModule,
     NgChartsModule,
     ReactiveFormsModule,
-    FullCalendarModule
+    FullCalendarModule  
   ]
 })
 export class AdminModule { }

@@ -1,0 +1,17 @@
+<div class="profile-container" *ngIf="admin && showProfile">
+    <h2>Admin Profile
+        <button (click)="closeProfile()" class="close-btn">×</button>
+    </h2>
+    <div class="profile-card">
+        <div class="profile-details">
+            <p><strong>Full Name:</strong> {{ admin.fullName }}</p>
+            <p><strong>Email:</strong> {{ admin.email }}</p>
+            <p><strong>Mobile Number:</strong> {{ admin.mobileNumber }}</p>
+            <p><strong>Date of Birth:</strong> {{ admin.dob | date:'dd-MM-yyyy' }}</p>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="(!admin || !showProfile)" class="no-user">
+    <p>Admin data not available or profile closed. Please log in.</p>
+</div>
