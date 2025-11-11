@@ -5,15 +5,65 @@ import {Component, OnInit, OnDestroy, HostListener} from '@angular/core';
   templateUrl: './game-news-page.component.html',
   styleUrls: ['./game-news-page.component.scss']
 })
+
 export class GameNewsPageComponent implements OnInit, OnDestroy {
   originalNewsList = [
-    { image: './assets/images/game-news-img/news-1.jpg', tag: 'Technology', date: '2022-01-04', author: 'Krista Gordon', title: 'Innovative Business Models You Must Know.', description: 'Financial experts support or help you...', link: '#' },
-    { image: './assets/images/game-news-img/news-2.jpg', tag: 'Innovation', date: '2022-01-05', author: 'Tyrell Wellick', title: 'Startup Launch Tips For New Founders.', description: 'Financial experts support or help you...', link: '#' },
-    { image: './assets/images/game-news-img/news-3.jpg', tag: 'Finance', date: '2022-01-03', author: 'Angela Moss', title: 'Financial Experts Support Help You To Find Out.', description: 'Financial experts support or help you...', link: '#' },
-    { image: './assets/images/game-news-img/news-4.jpg', tag: 'Business', date: '2022-01-01', author: 'Elliot Alderson', title: 'Innovative Business All Over The World.', description: 'Financial experts support or help you...', link: '#' },
-    { image: './assets/images/game-news-img/news-5.jpg', tag: 'Startup', date: '2022-01-02', author: 'Darlene Smith', title: 'How To Start Initiating A Startup In Few Days.', description: 'Financial experts support or help you...', link: '#' },
-    { image: './assets/images/game-news-img/news-6.jpeg', tag: 'Innovation', date: '2022-01-05', author: 'Tyrell Wellick', title: 'Startup Launch Tips For New Founders.', description: 'Financial experts support or help you...', link: '#' }
+    {
+      image: './assets/images/game-news-img/news-1.jpg',
+      tag: 'New Launch',
+      date: '2025-10-20',
+      author: 'VirtuStrike Team',
+      title: 'VirtuStrike Expands VR Gaming Experience in Indore',
+      description: 'Our arena at The Hub, Scheme 78, brings next-gen free-roam VR gaming to the heart of Indore. Step into immersive adventures like never before.',
+      link: '#'
+    },
+    {
+      image: './assets/images/game-news-img/news-2.jpg',
+      tag: 'Event',
+      date: '2025-09-15',
+      author: 'VirtuStrike Team',
+      title: 'Weekend VR Battles & Multiplayer Challenges',
+      description: 'Join our thrilling weekend tournaments and multiplayer VR experiences. Compete, win prizes, and show off your gaming skills at VirtuStrike.',
+      link: '#'
+    },
+    {
+      image: './assets/images/game-news-img/news-3.jpg',
+      tag: 'Innovation',
+      date: '2025-08-30',
+      author: 'VirtuStrike Labs',
+      title: 'Developing India’s Own Free-Roam VR Technology',
+      description: 'VirtuStrike is working on indigenous VR haptics and immersive systems to redefine how India experiences virtual reality gaming.',
+      link: '#'
+    },
+    {
+      image: './assets/images/game-news-img/news-4.jpg',
+      tag: 'Community',
+      date: '2025-07-25',
+      author: 'VirtuStrike Team',
+      title: 'Bringing VR Fun and Education to Indore’s Youth',
+      description: 'We’re introducing children and students to safe, interactive, and learning-based VR experiences — blending fun with innovation.',
+      link: '#'
+    },
+    {
+      image: './assets/images/game-news-img/news-5.jpg',
+      tag: 'Partnerships',
+      date: '2025-06-10',
+      author: 'VirtuStrike Team',
+      title: 'Collaborating with Local Startups for VR Growth',
+      description: 'VirtuStrike partners with Indore-based creators and developers to build an ecosystem for VR gaming, design, and tech innovation in India.',
+      link: '#'
+    },
+    {
+      image: './assets/images/game-news-img/news-6.jpeg',
+      tag: 'Offers',
+      date: '2025-05-05',
+      author: 'VirtuStrike Team',
+      title: 'Special Festive Offers on All VR Experiences!',
+      description: 'Celebrate festivals with us! Enjoy discounts on all games and group bookings at VirtuStrike VR Arena, Indore’s favorite gaming spot.',
+      link: '#'
+    }
   ];
+}
 
   displayNews: any[] = [];
   itemWidth = 0;
