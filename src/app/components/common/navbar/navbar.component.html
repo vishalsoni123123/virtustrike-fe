@@ -25,7 +25,7 @@
         <!-- Conditional Button -->
         <!-- JOIN WITH US: Show when NOT logged in OR when Admin is logged in -->
         <li *ngIf="!loggedIn || authService.isAdmin()">
-          <a routerLink="/sign-in" class="btn" (click)="closeNav()">JOIN WITH US</a>
+          <a routerLink="/sign-in" class="btn" (click)="closeNav()">SIGNUP AS WARRIOR</a>
         </li>
 
         <!-- MY PROFILE: Show ONLY when a USER (not Admin) is logged in -->
