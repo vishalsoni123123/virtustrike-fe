@@ -5,66 +5,14 @@ import {Component, OnInit, OnDestroy, HostListener} from '@angular/core';
   templateUrl: './game-news-page.component.html',
   styleUrls: ['./game-news-page.component.scss']
 })
+export class GameNewsPageComponent implements OnInit, OnDestroy { originalNewsList = [ { image: './assets/images/game-news-img/news-1.jpg', tag: 'Launch', date: '2025-10-15', author: 'VirtuStrike Team', title: 'VirtuStrike Launches Next-Gen Free-Roam VR Arena in Indore', description: 'Step into Indore’s first large-scale VR gaming experience featuring free-roam adventures and high-end immersive tech.', link: '#' }, 
+                                                                                      { image: './assets/images/game-news-img/news-2.jpg', tag: 'Events', date: '2025-09-20', author: 'VirtuStrike Team', title: 'Weekend VR Battles and Multiplayer Tournaments', description: 'Join VirtuStrike every weekend for thrilling multiplayer VR competitions and exciting community gaming sessions.', link: '#' },
+                                                                                      { image: './assets/images/game-news-img/news-3.jpg', tag: 'Innovation', date: '2025-08-10', author: 'VirtuStrike Labs', title: 'Building India’s Own VR Gaming and Haptics Technology', description: 'VirtuStrike is developing indigenous VR software and haptic solutions to revolutionize interactive gaming in India.', link: '#' }, 
+                                                                                      { image: './assets/images/game-news-img/news-4.jpg', tag: 'Community', date: '2025-07-05', author: 'VirtuStrike Team', title: 'Introducing Students to the Future of Virtual Reality', description: 'VirtuStrike partners with schools and colleges in Indore to educate youth about immersive VR technology and innovation.', link: '#' }, 
+                                                                                      { image: './assets/images/game-news-img/news-5.jpg', tag: 'Partnerships', date: '2025-06-25', author: 'VirtuStrike Team', title: 'Collaborating with Indian Developers to Create VR Games', description: 'We are working with local studios to design free-roam VR titles optimized for VirtuStrike’s arena experience.', link: '#' },
+                                                                                      { image: './assets/images/game-news-img/news-6.jpeg', tag: 'Offers', date: '2025-05-10', author: 'VirtuStrike Team', title: 'Festive Discounts on All VR Experiences at VirtuStrike', description: 'Celebrate with exciting offers on group bookings and premium VR games — exclusively at VirtuStrike Indore.', link: '#' } ]; }
 
-export class GameNewsPageComponent implements OnInit, OnDestroy {
-  originalNewsList = [
-    {
-      image: './assets/images/game-news-img/news-1.jpg',
-      tag: 'New Launch',
-      date: '2025-10-20',
-      author: 'VirtuStrike Team',
-      title: 'VirtuStrike Expands VR Gaming Experience in Indore',
-      description: 'Our arena at The Hub, Scheme 78, brings next-gen free-roam VR gaming to the heart of Indore. Step into immersive adventures like never before.',
-      link: '#'
-    },
-    {
-      image: './assets/images/game-news-img/news-2.jpg',
-      tag: 'Event',
-      date: '2025-09-15',
-      author: 'VirtuStrike Team',
-      title: 'Weekend VR Battles & Multiplayer Challenges',
-      description: 'Join our thrilling weekend tournaments and multiplayer VR experiences. Compete, win prizes, and show off your gaming skills at VirtuStrike.',
-      link: '#'
-    },
-    {
-      image: './assets/images/game-news-img/news-3.jpg',
-      tag: 'Innovation',
-      date: '2025-08-30',
-      author: 'VirtuStrike Labs',
-      title: 'Developing India’s Own Free-Roam VR Technology',
-      description: 'VirtuStrike is working on indigenous VR haptics and immersive systems to redefine how India experiences virtual reality gaming.',
-      link: '#'
-    },
-    {
-      image: './assets/images/game-news-img/news-4.jpg',
-      tag: 'Community',
-      date: '2025-07-25',
-      author: 'VirtuStrike Team',
-      title: 'Bringing VR Fun and Education to Indore’s Youth',
-      description: 'We’re introducing children and students to safe, interactive, and learning-based VR experiences — blending fun with innovation.',
-      link: '#'
-    },
-    {
-      image: './assets/images/game-news-img/news-5.jpg',
-      tag: 'Partnerships',
-      date: '2025-06-10',
-      author: 'VirtuStrike Team',
-      title: 'Collaborating with Local Startups for VR Growth',
-      description: 'VirtuStrike partners with Indore-based creators and developers to build an ecosystem for VR gaming, design, and tech innovation in India.',
-      link: '#'
-    },
-    {
-      image: './assets/images/game-news-img/news-6.jpeg',
-      tag: 'Offers',
-      date: '2025-05-05',
-      author: 'VirtuStrike Team',
-      title: 'Special Festive Offers on All VR Experiences!',
-      description: 'Celebrate festivals with us! Enjoy discounts on all games and group bookings at VirtuStrike VR Arena, Indore’s favorite gaming spot.',
-      link: '#'
-    }
-  ];
-}
-
+  
   displayNews: any[] = [];
   itemWidth = 0;
   itemsPerView = 3;
