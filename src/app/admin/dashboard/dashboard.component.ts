@@ -35,7 +35,7 @@ export class DashboardComponent implements OnInit {
         key: 'users',
         label: 'Total Users',
         icon: 'bi-people-fill',
-        value: 10,
+        value: 25,
         change: 5.2,
         color: '#3b82f6',
         period: 'monthly'
@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
         key: 'enquiries',
         label: 'Total Enquiries',
         icon: 'bi-question-circle-fill',
-        value: 5,
+        value: 11,
         change: 10.0,
         color: '#3b82f6',
         period: 'monthly'
@@ -53,7 +53,7 @@ export class DashboardComponent implements OnInit {
         key: 'bookings',
         label: 'Total Bookings',
         icon: 'bi-calendar-check',
-        value: 3,
+        value: 15,
         change: -2.5,
         color: '#f59e0b',
         period: 'monthly'
