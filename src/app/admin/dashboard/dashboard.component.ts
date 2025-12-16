@@ -62,7 +62,7 @@ export class DashboardComponent implements OnInit {
         key: 'revenue',
         label: 'Total Revenue',
         icon: 'bi-currency-rupee',
-        value: 5000,
+        value: 153000,
         change: 12.7,
         color: '#10b981',
         period: 'monthly'
