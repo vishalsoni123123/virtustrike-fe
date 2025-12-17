@@ -2,13 +2,18 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
-    production: false,
- //   backendBaseUrl: 'https://virtustrike.com/virtustrike-management-api-local',
-    backendBaseUrl: 'https://api.virtustrike.com',
-    s3BaseUrl: 'https://virtustrike-assets.s3.ap-south-1.amazonaws.com'
-};
+// export const environment = {
+//     production: false,
+//  //   backendBaseUrl: 'https://virtustrike.com/virtustrike-management-api-local',
+//     backendBaseUrl: 'https://api.virtustrike.com',
+//     s3BaseUrl: 'https://virtustrike-assets.s3.ap-south-1.amazonaws.com'
+// };
 
+export const environment = {
+  production: false,
+  backendBaseUrl: 'https://api.virtustrike.com/virtustrike-management-api-local',
+  s3BaseUrl: 'https://virtustrike-assets.s3.ap-south-1.amazonaws.com'
+};
 
 /*
  * For easier debugging in development mode, you can import the following file
