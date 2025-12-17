@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "virtustrike.com" }],
+      "destination": "https://www.virtustrike.com/$1",
+      "permanent": true
+    }
+  ]
+}
