@@ -83,7 +83,7 @@ export class AddGameComponent {
 
     this.http
       .post(
-        `https://virtustrike.com/virtustrike-management-api-local/admin/game/addgameWithPhotos?GameAddRequestModelJson=${encodedData}`,
+        `https://api.virtustrike.com/virtustrike-management-api-local/admin/game/addgameWithPhotos?GameAddRequestModelJson=${encodedData}`,
         formData
       )
       .subscribe({
